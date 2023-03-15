@@ -6,10 +6,10 @@
     final class Sujet extends Entity{
 
         private $id;
-        private $title;
-        private $user;
-        private $creationdate;
-        private $closed;
+        private $titre;
+        private $utilisateur;
+        private $dateDeCreation;
+        private $etat;
 
         public function __construct($data){         
             $this->hydrate($data);        
@@ -36,71 +36,71 @@
         }
 
         /**
-         * Get the value of title
+         * Get the value of titre
          */ 
-        public function getTitle()
+        public function getTitre()
         {
-                return $this->title;
+                return $this->titre;
         }
 
         /**
-         * Set the value of title
+         * Set the value of titre
          *
          * @return  self
          */ 
-        public function setTitle($title)
+        public function setTitre($titre)
         {
-                $this->title = $title;
+                $this->titre = $titre;
 
                 return $this;
         }
 
         /**
-         * Get the value of user
+         * Get the value of utilisateur
          */ 
-        public function getUser()
+        public function getUtilisateur()
         {
-                return $this->user;
+                return $this->utilisateur;
         }
 
         /**
-         * Set the value of user
+         * Set the value of utilisateur
          *
          * @return  self
          */ 
-        public function setUser($user)
+        public function setUtilisateur($utilisateur)
         {
-                $this->user = $user;
+                $this->utilisateur = $utilisateur;
 
                 return $this;
         }
 
-        public function getCreationdate(){
-            $formattedDate = $this->creationdate->format("d/m/Y, H:i:s");
+        public function getDateDeCreation(){
+            $formattedDate = $this->dateDeCreation->format("d/m/Y, H:i:s");
             return $formattedDate;
         }
 
-        public function setCreationdate($date){
-            $this->creationdate = new \DateTime($date);
+        public function setDateDeCreation($date){
+            $this->dateDeCreation = new \DateTime($date);
             return $this;
         }
 
         /**
-         * Get the value of closed
+         * Get the value of etat
          */ 
-        public function getClosed()
+        public function getEtat()
         {
-                return $this->closed;
+                return $this->etat;
         }
 
         /**
-         * Set the value of closed
+         * Set the value of etat
          *
          * @return  self
          */ 
-        public function setClosed($closed)
+        public function setEtat($etat)
         {
-                $this->closed = $closed;
+                $this->etat = $etat;
 
                 return $this;
         }

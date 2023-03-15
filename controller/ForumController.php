@@ -13,17 +13,15 @@
         public function index(){
           
 
-           $topicManager = new SujetManager();
+           $sujetManager = new SujetManager();
 
             return [
                 "view" => VIEW_DIR."forum/listSujets.php",
                 "data" => [
-                    "sujets" => $topicManager->findAll(["creationdate", "DESC"])
+                    "sujets" => $sujetManager->findAll(["dateDeCreation", "DESC"])
                 ]
             ];
         
         }
-
-        
 
     }
