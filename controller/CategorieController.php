@@ -5,19 +5,18 @@
     use App\Session;
     use App\AbstractController;
     use App\ControllerInterface;
-    use Model\Managers\SujetManager;
-    use Model\Managers\MessageManager;
+    use Model\Managers\CategorieManager;
     
-    class ForumController extends AbstractController implements ControllerInterface{
+    class CategorieController extends AbstractController implements ControllerInterface{
 
         public function index(){
-
-           $sujetManager = new SujetManager();
+          
+           $catégorieManager = new CategorieManager();
 
             return [
                 "view" => VIEW_DIR."forum/listSujets.php",
                 "data" => [
-                    "sujets" => $sujetManager->findAll(["dateDeCreation", "DESC"])
+                    "catégories" => $catégorieManager->findAll(["nom", "DESC"])
                 ]
             ];
         

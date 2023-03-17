@@ -9,11 +9,11 @@ $sujets = $result["data"]['sujets'];
 
 <?php
 if (!$categories) {
-    echo "<p>Aucun sujet n'a été trouver</p>";
+    echo "<p>Aucune catégories n'a été trouver</p>";
 } else {
-    foreach($categories as $sujet ){
+    foreach($categories as $categorie ){
         ?>
-        <p><?=$sujet->getTitre()?></p>
+        <p><?=$categorie->getNom()?></p>
         <?php
     }
 }?>

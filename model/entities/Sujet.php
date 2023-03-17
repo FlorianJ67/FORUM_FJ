@@ -10,6 +10,7 @@
         private $utilisateur;
         private $dateDeCreation;
         private $etat;
+        private $categorie;
 
         public function __construct($data){         
             $this->hydrate($data);        
@@ -71,6 +72,26 @@
         public function setUtilisateur($utilisateur)
         {
                 $this->utilisateur = $utilisateur;
+
+                return $this;
+        }
+
+                /**
+         * Get the value of utilisateur
+         */ 
+        public function getCategorie()
+        {
+                return $this->categorie;
+        }
+
+        /**
+         * Set the value of utilisateur
+         *
+         * @return  self
+         */ 
+        public function setCategorie($categorie)
+        {
+                $this->categorie = $categorie;
 
                 return $this;
         }
