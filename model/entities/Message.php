@@ -6,10 +6,10 @@
     final class Message extends Entity{
 
         private $id;
-        private $title;
-        private $user;
+        private $contenu;
+        private $utilisateur;
         private $dateDeCreation;
-
+        private $sujet;
 
         public function __construct($data){         
             $this->hydrate($data);        
@@ -35,45 +35,68 @@
                 return $this;
         }
 
-        /**
-         * Get the value of title
+                /**
+         * Get the value of id
          */ 
-        public function getTitle()
+        public function getContenu()
         {
-                return $this->title;
+                return $this->contenu;
         }
 
         /**
-         * Set the value of title
+         * Set the value of id
          *
          * @return  self
          */ 
-        public function setTitle($title)
+        public function setContenu($id)
         {
-                $this->title = $title;
+                $this->contenu = $id;
 
                 return $this;
         }
 
-        /**
-         * Get the value of user
+        
+                /**
+         * Get the value of id
          */ 
-        public function getUser()
+        public function getUtilisateur()
         {
-                return $this->user;
+                return $this->utilisateur;
         }
 
         /**
-         * Set the value of user
+         * Set the value of id
          *
          * @return  self
          */ 
-        public function setUser($user)
+        public function setUtilisateur($id)
         {
-                $this->user = $user;
+                $this->utilisateur = $id;
 
                 return $this;
         }
+
+        
+                /**
+         * Get the value of id
+         */ 
+        public function getSujet()
+        {
+                return $this->sujet;
+        }
+
+        /**
+         * Set the value of id
+         *
+         * @return  self
+         */ 
+        public function setSujet($id)
+        {
+                $this->sujet = $id;
+
+                return $this;
+        }
+
 
         public function getDateDeCreation(){
             $formattedDate = $this->dateDeCreation->format("d/m/Y, H:i:s");

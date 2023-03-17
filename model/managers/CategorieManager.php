@@ -3,7 +3,6 @@
     
     use App\Manager;
     use App\DAO;
-    use Model\Managers\CategorieManager;
 
     class CategorieManager extends Manager{
 

@@ -9,7 +9,7 @@
         private $pseudo;
         private $mail;
         private $mot_de_passe;
-        private $creationdate;
+        private $dateInscription;
 
 
         public function __construct($data){         
@@ -97,12 +97,12 @@
         }
 
         public function getCreationdate(){
-            $formattedDate = $this->creationdate->format("d/m/Y, H:i:s");
+            $formattedDate = $this->dateInscription->format("d/m/Y, H:i:s");
             return $formattedDate;
         }
 
         public function setCreationdate($date){
-            $this->creationdate = new \DateTime($date);
+            $this->dateInscription = new \DateTime($date);
             return $this;
         }
 
