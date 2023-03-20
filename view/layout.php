@@ -41,6 +41,7 @@
                         else{
                             ?>
                             <a href="index.php?ctrl=sujet&action=listSujets">la liste des topics</a>
+                            <a href="index.php?ctrl=categorie&action=listCategories">la liste des catégories</a>
                             <a href="/security/register.html">Inscription</a>
                             <a href="./view/security/login.php">Connexion</a>
                         <?php

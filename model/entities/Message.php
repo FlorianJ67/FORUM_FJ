@@ -48,9 +48,9 @@
          *
          * @return  self
          */ 
-        public function setContenu($id)
+        public function setContenu($contenu)
         {
-                $this->contenu = $id;
+                $this->contenu = $contenu;
 
                 return $this;
         }
@@ -69,9 +69,9 @@
          *
          * @return  self
          */ 
-        public function setUtilisateur($id)
+        public function setUtilisateur($utilisateur)
         {
-                $this->utilisateur = $id;
+                $this->utilisateur = $utilisateur;
 
                 return $this;
         }
@@ -90,9 +90,9 @@
          *
          * @return  self
          */ 
-        public function setSujet($id)
+        public function setSujet($sujet)
         {
-                $this->sujet = $id;
+                $this->sujet = $sujet;
 
                 return $this;
         }

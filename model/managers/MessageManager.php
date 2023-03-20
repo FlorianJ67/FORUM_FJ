@@ -14,5 +14,21 @@
             parent::connect();
         }
 
+        public function listMessagesParSujet($id){
+            parent::connect();
+
+                $sql = "SELECT *
+                        FROM ".$this->tableName."
+                        WHERE sujet_id = :id
+                        ORDER BY dateDeCreation
+                        ";
+
+                return $this->getMultipleResults(
+                    DAO::select($sql, ['id' => $id], true), 
+                    $this->className
+                );
+
+        }
+
 
     }

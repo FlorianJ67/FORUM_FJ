@@ -14,12 +14,13 @@
             parent::connect();
         }
 
-        public function listTopicsByCategory($id){
+        public function listSujetsParCategorie($id){
             parent::connect();
 
                 $sql = "SELECT *
                         FROM ".$this->tableName." a
-                        WHERE a.category_id = :id
+                        WHERE a.categorie_id = :id
+                        ORDER BY a.dateDeCreation
                         ";
 
                 return $this->getMultipleResults(
@@ -28,5 +29,6 @@
                 );
 
         }
+
 
     }

@@ -11,12 +11,12 @@
 
         public function index(){
           
-           $catégorieManager = new CategorieManager();
+           $categorieManager = new CategorieManager();
 
             return [
-                "view" => VIEW_DIR."forum/listSujets.php",
+                "view" => VIEW_DIR."forum/listCategories.php",
                 "data" => [
-                    "catégories" => $catégorieManager->findAll(["nom", "DESC"])
+                    "categories" => $categorieManager->findAll(["nom", "DESC"])
                 ]
             ];
         

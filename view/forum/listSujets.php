@@ -2,33 +2,72 @@
 
 $categories = $result["data"]['categories'];
 $sujets = $result["data"]['sujets'];
+
+
+if($_POST){ 
+    $categorieSelected = $_POST['categorie'];
+} else {
+    $categorieSelected = null;
+}
     
 ?>
 
 <h1>liste des sujets</h1>
 
-<?php
-if (!$categories) {
-    echo "<p>Aucune catégories n'a été trouver</p>";
-} else {
-    foreach($categories as $categorie ){
-        ?>
-        <p><?=$categorie->getNom()?></p>
-        <?php
-    }
-}?>
+<div id="forumList">
+    <!-- Liste des genres -->
+     <form action="index.php?ctrl=sujet&action=sujetsParCategorie&id=<?= $categorieSelected ?>" method="post">
+        <label for="categorie">Catégorie</label>
+        <select name="categorie" id="categorie">
+            <option value="" selected disabled>Toutes (par date)</option>
+        <?php 
+            if (!$categories) {
+                echo "<p>Aucune catégories n'a été trouver</p>";
+            } else {
+                foreach($categories as $categorie ){
+                    ?>
+                    <option name="<?=$categorie->getNom()?>" value="<?=$categorie->getId()?>" ><?=$categorie->getNom()?></option>                 
+                    <?php
+                }
+            }?>
+        </select>
+        <input type="submit">
+    </form> 
+    
+    <!-- Liste des sujets -->
+    <table>
+        <thead>
+            <tr>
+                <th>Sujet</th>
+                <th>Dernière activité</th>
+                <th>Crée le</th>
+                <th>Créateur</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            if (!$sujets) {
+                echo "<p>Aucun sujet n'a été trouver</p>";
+            } else {
+                foreach($sujets as $sujet ){
+                    ?>
+                <tr>    
+                    <td><a href="index.php?ctrl=sujet&action=sujetsThread&id=<?=$sujet->getId()?>"><?=$sujet->getTitre()?></a></td>
+                    <td>non</td>
+                    <td><?=$sujet->getDateDeCreation()?></td>
+                    <td><?=$sujet->getUtilisateur()->getPseudo()?></td>
+                </tr>
+                    <?php
+                }
+            }?>
+            
+        </tbody>
+    </table>
+
+</div>
 
 
-<?php
-if (!$sujets) {
-    echo "<p>Aucun sujet n'a été trouver</p>";
-} else {
-    foreach($sujets as $sujet ){
-        ?>
-        <p><?=$sujet->getTitre()?></p>
-        <?php
-    }
-}?>
+
 
 
 
