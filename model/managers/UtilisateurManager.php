@@ -15,4 +15,18 @@
         }
 
 
+        public function listInfoUtilisateur($id){
+            parent::connect();
+
+                $sql = "SELECT *
+                        FROM ".$this->tableName."
+                        WHERE utilisateur_id = :id
+                        ";
+
+                return $this->getMultipleResults(
+                    DAO::select($sql, ['id' => $id], true), 
+                    $this->className
+                );
+
+        }
     }
