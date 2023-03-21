@@ -27,10 +27,27 @@
         }
 
         public function sujetsParCategorie($id){
-          
+            
             $sujetManager = new SujetManager();
             $categorieManager = new CategorieManager();
- 
+            
+            //liste des sujets par catégories (via le <select> dans listSujets)
+            if(isset($_POST['categorie'])){
+
+                $categorieSelected = filter_input(INPUT_POST,'categorie',FILTER_SANITIZE_NUMBER_INT);
+
+                return [
+                    "view" => VIEW_DIR."forum/listSujets.php",
+                    "data" => [
+                        "categories" => $categorieManager->findAll(["nom", "DESC"]),
+                        "sujets" => $sujetManager->listSujetsParCategorie($categorieSelected ),
+                    ]
+                ];
+            } else {
+                $categorieSelected = null;
+            } 
+
+            // liste des sujets par catégories (via "la liste des catégories")
             if($id) {
                 return [
                     "view" => VIEW_DIR."forum/listSujets.php",
@@ -39,6 +56,8 @@
                         "sujets" => $sujetManager->listSujetsParCategorie($id),
                     ]
                 ];
+
+            // vue par defaut id=null ou sans id spécifier
             } else {
                 return [
                     "view" => VIEW_DIR."forum/listSujets.php",
@@ -65,6 +84,30 @@
                 ];
             } 
 
+         
+        }
+
+        public function nouveauSujet($id){
+          
+            $sujetManager = new SujetManager();
+            $messageManager = new MessageManager();
+ 
+            if(isset($_POST['submit'])) {
+
+                $titreSujet = filter_input(INPUT_POST, "titreSujet", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $textMessage = filter_input(INPUT_POST, "textMessage", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+                $utilisateur = 2;
+
+                if($titreSujet && $textMessage && $utilisateur) {
+
+                    $IdDernierSujetAjouter = $sujetManager->add(["titre" => $titreSujet, "textMessage" => $textMessage, "category_id" => $id]);
+                
+                    $messageManager->add(["sujet_id" => $IdDernierSujetAjouter,"utilisateur_id" => $utilisateur,"contenu" => $textMessage]);
+
+                    $this->redirectTo('sujet', 'listSujetsParCategorie', $id);
+                }
+            }
          
         }
 

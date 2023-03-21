@@ -117,7 +117,7 @@ table tr:nth-child(even) {
 }
 .message-box div:last-child {
     padding: 1%;
-    background-color: #8585855c;
+    background-color: var(--colorTwo);
     border-radius: 0 10px 10px 10px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
 }

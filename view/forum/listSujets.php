@@ -4,19 +4,14 @@ $categories = $result["data"]['categories'];
 $sujets = $result["data"]['sujets'];
 
 
-if($_POST){ 
-    $categorieSelected = $_POST['categorie'];
-} else {
-    $categorieSelected = null;
-}
-    
+
 ?>
 
 <h1>liste des sujets</h1>
 
 <div id="forumList">
     <!-- Liste des genres -->
-     <form action="index.php?ctrl=sujet&action=sujetsParCategorie&id=<?= $categorieSelected ?>" method="post">
+     <form action="index.php?ctrl=sujet&action=sujetsParCategorie" method="post">
         <label for="categorie">Catégorie</label>
         <select name="categorie" id="categorie">
             <option value="" selected disabled>Toutes (par date)</option>
@@ -63,6 +58,13 @@ if($_POST){
             
         </tbody>
     </table>
+
+    <form action="index.php?ctrl=sujet&action=nouveauSujet&id=<?= $sujets->getCategorie()->getId() ?>" method="post">
+            <input type="text" name="titreSujet">
+            <input type="text" name="categorie">
+            <textarea rows= "3"></textarea>
+            <input type="submit">
+    </form>
 
 </div>
 
