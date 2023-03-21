@@ -47,7 +47,7 @@ if($_POST){
         <tbody>
             <?php
             if (!$sujets) {
-                echo "<p>Aucun sujet n'a été trouver</p>";
+                echo "<tr><td><p style='color: red; font-weight: bold; text-align: center'>Aucun sujet n'a été trouver</p></td></tr>";
             } else {
                 foreach($sujets as $sujet ){
                     ?>
@@ -55,7 +55,7 @@ if($_POST){
                     <td><a href="index.php?ctrl=sujet&action=sujetsThread&id=<?=$sujet->getId()?>"><?=$sujet->getTitre()?></a></td>
                     <td>non</td>
                     <td><?=$sujet->getDateDeCreation()?></td>
-                    <td><?=$sujet->getUtilisateur()->getPseudo()?></td>
+                    <td><a href="index.php?ctrl=utilisateur&action=detailUtilisateur&id=<?= $sujet->getUtilisateur()->getId()?>"><?=$sujet->getUtilisateur()->getPseudo() ?></a></td>
                 </tr>
                     <?php
                 }

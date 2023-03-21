@@ -18,7 +18,7 @@ $messages = $result["data"]['messages'];
                     ?>
                 <div class="message-box">
                     <div>
-                        <p class="user-message"><?=$message->getUtilisateur()->getPseudo()?></p>
+                        <a class="user-message" href="index.php?ctrl=utilisateur&action=detailUtilisateur&id=<?= $message->getUtilisateur()->getId()?>"><?=$message->getUtilisateur()->getPseudo()?></a>
                     </div>
                     <div>
                         <p><?=$message->getContenu()?></p>

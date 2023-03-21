@@ -30,5 +30,22 @@
 
         }
 
+        public function listMessagesParUtilisateur($id){
+            parent::connect();
+
+                $sql = "SELECT *
+                        FROM ".$this->tableName."
+                        WHERE utilisateur_id = :id
+                        ORDER BY dateDeCreation
+                        LIMIT 5
+                        ";
+
+                return $this->getMultipleResults(
+                    DAO::select($sql, ['id' => $id], true), 
+                    $this->className
+                );
+
+        }
+
 
     }
