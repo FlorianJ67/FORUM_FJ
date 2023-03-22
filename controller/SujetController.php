@@ -112,7 +112,26 @@
             }
          
         }
+        
+        public function nouveauMessage($id){
+          
+            $messageManager = new MessageManager();
+ 
+            if(isset($_POST['submit'])) {
 
+                $textMessage = filter_input(INPUT_POST, "textMessage", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+                $utilisateur = 2;
+
+                if($textMessage && $utilisateur) {
+
+                    $messageManager->add(["sujet_id" => $id,"utilisateur_id" => $utilisateur,"contenu" => $textMessage]);
+
+                    $this->redirectTo('sujet', 'sujetsThread', $id);
+                }
+            }
+         
+        }
     }
 
 
