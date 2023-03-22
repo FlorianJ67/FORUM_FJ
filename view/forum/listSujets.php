@@ -3,6 +3,9 @@
 $categories = $result["data"]['categories'];
 $sujets = $result["data"]['sujets'];
 
+if (isset($result["data"]['categorieActuel'])) {
+    $categorieActuel = $result["data"]['categorieActuel'];
+}
 
 
 ?>
@@ -58,14 +61,18 @@ $sujets = $result["data"]['sujets'];
             
         </tbody>
     </table>
-
-    <form action="index.php?ctrl=sujet&action=nouveauSujet&id=<?= $sujets->getCategorie()->getId() ?>" method="post">
+    <?php
+    if (isset($categorieActuel)) {
+    ?>
+    <form action="index.php?ctrl=sujet&action=nouveauSujet&id=<?= $categorieActuel ?>" method="post">
             <input type="text" name="titreSujet">
-            <input type="text" name="categorie">
-            <textarea rows= "3"></textarea>
+            <input type="text" value="<?= $categorieActuel ?>" name="categorie">
+            <textarea name="textMessage" rows= "3"></textarea>
             <input type="submit">
     </form>
-
+    <?php
+    }
+    ?>
 </div>
 
 

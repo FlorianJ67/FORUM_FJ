@@ -41,6 +41,7 @@
                     "data" => [
                         "categories" => $categorieManager->findAll(["nom", "DESC"]),
                         "sujets" => $sujetManager->listSujetsParCategorie($categorieSelected ),
+                        "categorieActuel" => $categorieSelected,
                     ]
                 ];
             } else {
@@ -101,11 +102,11 @@
 
                 if($titreSujet && $textMessage && $utilisateur) {
 
-                    $IdDernierSujetAjouter = $sujetManager->add(["titre" => $titreSujet, "textMessage" => $textMessage, "category_id" => $id]);
+                    $IdDernierSujetAjouter = $sujetManager->add(["titre" => $titreSujet, "category_id" => $id,"utilisateur_id" => $utilisateur]);
                 
                     $messageManager->add(["sujet_id" => $IdDernierSujetAjouter,"utilisateur_id" => $utilisateur,"contenu" => $textMessage]);
 
-                    $this->redirectTo('sujet', 'listSujetsParCategorie', $id);
+                    $this->redirectTo('sujet', 'sujetsParCategorie', $id);
                 }
             }
          
