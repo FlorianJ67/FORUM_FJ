@@ -98,12 +98,13 @@
                 $titreSujet = filter_input(INPUT_POST, "titreSujet", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $textMessage = filter_input(INPUT_POST, "textMessage", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
+
                 $utilisateur = 2;
 
                 if($titreSujet && $textMessage && $utilisateur) {
 
-                    $IdDernierSujetAjouter = $sujetManager->add(["titre" => $titreSujet, "category_id" => $id,"utilisateur_id" => $utilisateur]);
-                
+                    $IdDernierSujetAjouter = $sujetManager->add(["titre" => $titreSujet, "categorie_id" => $id,"utilisateur_id" => $utilisateur]);
+
                     $messageManager->add(["sujet_id" => $IdDernierSujetAjouter,"utilisateur_id" => $utilisateur,"contenu" => $textMessage]);
 
                     $this->redirectTo('sujet', 'sujetsThread', $IdDernierSujetAjouter);
