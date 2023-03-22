@@ -66,9 +66,8 @@ if (isset($result["data"]['categorieActuel'])) {
     ?>
     <form action="index.php?ctrl=sujet&action=nouveauSujet&id=<?= $categorieActuel ?>" method="post">
             <input type="text" name="titreSujet">
-            <input type="text" value="<?= $categorieActuel ?>" name="categorie">
             <textarea name="textMessage" rows= "3"></textarea>
-            <input type="submit">
+            <input type="submit" name="submit">
     </form>
     <?php
     }

@@ -106,7 +106,7 @@
                 
                     $messageManager->add(["sujet_id" => $IdDernierSujetAjouter,"utilisateur_id" => $utilisateur,"contenu" => $textMessage]);
 
-                    $this->redirectTo('sujet', 'sujetsParCategorie', $id);
+                    $this->redirectTo('sujet', 'sujetsThread', $IdDernierSujetAjouter);
                 }
             }
          
