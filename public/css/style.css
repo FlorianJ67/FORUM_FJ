@@ -102,10 +102,35 @@ table td:not(:last-child) {
 table tr:nth-child(even) {
     background-color: white;
 }
+.gestionnaireUtilisateur {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.gestionnaireUtilisateur form{
+    width: 50%;
+    margin-top: 3%;
+    padding: 2%;
+    border-radius: 5px;
+}
+.gestionnaireUtilisateur form div{ 
+    width: 100%;
+}
+.gestionnaireUtilisateur form div:not(:last-child){ 
+    display: flex;
+    justify-content: space-between;
+}
+.gestionnaireUtilisateur form div:last-child{ 
+    display: flex;
+    justify-content: center;
+}
+.gestionnaireUtilisateur form div input{
+    width: 50%;
+}
+
 
 .message-box {
     width: 95%;
-
     border-radius: 5px;
     margin-bottom: 1%;
 }
@@ -126,6 +151,12 @@ table tr:nth-child(even) {
     font-size: 0.8rem;
     font-style: italic;
     opacity: 0.6;
+}
+
+.error-box {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 footer {

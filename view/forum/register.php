@@ -9,24 +9,24 @@ if(isset($result["data"]['error'])) {
 ?>
 
 
-<div>
+<div class="gestionnaireUtilisateur">
 
     <form action="index.php?ctrl=security&action=ajoutUtilisateur" method="post">
         <div>
             <label for="pseudo">Pseudo *</label>
-            <input type="text" name="pseudo">      
+            <input type="text" name="pseudo" required>      
         </div>
         <div>
             <label for="mail">Mail *</label>
-            <input type="mail" name="mail">
+            <input type="mail" name="mail" required>
             </div>
         <div>
             <label for="mdp1">Mot de passe *</label>
-            <input type="password" name="mdp1">
+            <input type="password" name="mdp1" required>
             </div>
         <div>
             <label for="mdp2">Vérifier le mot de passe *</label>
-            <input type="password" name="mdp2">
+            <input type="password" name="mdp2" required>
             </div>
         <div>
             <input type="submit" name="submit">

@@ -32,37 +32,54 @@
                 $mdp1 = filter_input(INPUT_POST, "mdp1", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $mdp2 = filter_input(INPUT_POST, "mdp2", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
+
+                // on vérifie si les champs n'existe pas déjà en BDD et que les mots de passe sont bien identique
+
+                // variable qui stock les erreurs pour en afficher plusieurs si nécessaire
                 $error = null;
-
+                
                 // on verifie le mail
-
-                if ($utilisateurManager->checkUtilisateurMail($mail)) {
-                    $error = "Le mail est déjà utilisé";
+                if ($mail) {
+                    if ($utilisateurManager->checkUtilisateurMail($mail)) {
+                        $error = "Le mail est déjà utilisé";
+                    }                    
                 }
-    
+
                 // on verifie le pseudo
-                if ($utilisateurManager->checkUtilisateurPseudo($pseudo)) {
-                    if ($error) {
-                        $error .= "<br>Le pseudo existe déjà";
-                    } else {
-                        $error = "Le pseudo existe déjà";
-                    }
+                if ($pseudo) {
+                    if ($utilisateurManager->checkUtilisateurPseudo($pseudo)) {
+                        if ($error) {
+                            $error .= "<br>Le pseudo existe déjà";
+                        } else {
+                            $error = "Le pseudo existe déjà";
+                        }
+                    }                    
                 }
-            }
+
+            
                 // on compare le mdp et le 'vérifier' mdp
-                if($mdp1 == $mdp2) {
-                    // si ils sont identique on crée le mdp hasher
-                    $motDePasse = password_hash($mdp1, PASSWORD_DEFAULT);
-                } else {
-                    $motDePasse = null;
-
-                    if ($error) {
-                        $error .= "<br>Les mots de passes ne correspondent pas";
+                if(isset($mdp1) && isset($mdp2)) {
+                    if($mdp1 == null || $mdp2 = null) {
+                        $motDePasse = null;
+                        if ($error) {
+                            $error .= "<br>Les mots de passes ne correspondent pas";
+                        } else {
+                            $error = "Les mots de passes ne correspondent pas";
+                        }
+                    } else if($mdp1 == $mdp2) {
+                        // si ils sont identique on crée le mdp hasher
+                        $motDePasse = password_hash($mdp1, PASSWORD_DEFAULT);
                     } else {
-                        $error = "Les mots de passes ne correspondent pas";
-                    }
-                }
+                        $motDePasse = null;
 
+                        if ($error) {
+                            $error .= "<br>Les mots de passes ne correspondent pas";
+                        } else {
+                            $error = "Les mots de passes ne correspondent pas";
+                        }
+                    }   
+                }
+        
                 if ($error) {
                     return [
                         "view" => VIEW_DIR."forum/register.php",
@@ -78,8 +95,7 @@
 
                     $this->redirectTo('utilisateur', 'detailUtilisateur', $idUser);
                 }
-
-         
+            }
         }
 
         public function connexionUtilisateur(){
