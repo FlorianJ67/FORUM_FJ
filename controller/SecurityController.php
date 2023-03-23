@@ -32,25 +32,21 @@
                 $mdp1 = filter_input(INPUT_POST, "mdp1", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $mdp2 = filter_input(INPUT_POST, "mdp2", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
+                $error = null;
+
                 // on verifie le mail
 
                 if ($utilisateurManager->checkUtilisateurMail($mail)) {
-                    return [
-                        "view" => VIEW_DIR."forum/register.php",
-                        "data" => [
-                            "error" => "Le mail est déjà utilisé"
-                        ]
-                    ];
+                    $error = "Le mail est déjà utilisé";
                 }
     
                 // on verifie le pseudo
                 if ($utilisateurManager->checkUtilisateurPseudo($pseudo)) {
-                    return [
-                        "view" => VIEW_DIR."forum/register.php",
-                        "data" => [
-                            "error" => "Le pseudo existe déjà"
-                        ]
-                    ];
+                    if ($error) {
+                        $error .= "<br>Le pseudo existe déjà";
+                    } else {
+                        $error = "Le pseudo existe déjà";
+                    }
                 }
             }
                 // on compare le mdp et le 'vérifier' mdp
@@ -59,12 +55,21 @@
                     $motDePasse = password_hash($mdp1, PASSWORD_DEFAULT);
                 } else {
                     $motDePasse = null;
+
+                    if ($error) {
+                        $error .= "<br>Les mots de passes ne correspondent pas";
+                    } else {
+                        $error = "Les mots de passes ne correspondent pas";
+                    }
+                }
+
+                if ($error) {
                     return [
                         "view" => VIEW_DIR."forum/register.php",
                         "data" => [
-                            "error" => "Les mots de passes ne correspondent pas"
+                            "error" => $error
                         ]
-                    ];  
+                    ];
                 }
 
                 if($pseudo && $mail && $motDePasse) {
@@ -73,6 +78,7 @@
 
                     $this->redirectTo('utilisateur', 'detailUtilisateur', $idUser);
                 }
+
          
         }
 
