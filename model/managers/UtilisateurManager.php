@@ -27,6 +27,34 @@
                     DAO::select($sql, ['id' => $id], true), 
                     $this->className
                 );
-
         }
+
+        public function checkUtilisateurMail($utilisateurMail){
+            parent::connect();
+
+                $sql = "SELECT *
+                        FROM ".$this->tableName."
+                        WHERE mail = :utilisateurMail
+                        ";
+
+                return $this->getOneOrNullResult(
+                    DAO::select($sql, ['utilisateurMail' => $utilisateurMail], true), 
+                    $this->className
+                );
+        }
+
+        public function checkUtilisateurPseudo($utilisateurPseudo){
+            parent::connect();
+
+                $sql = "SELECT *
+                        FROM ".$this->tableName."
+                        WHERE pseudo = :utilisateurPseudo
+                        ";
+
+                return $this->getOneOrNullResult(
+                    DAO::select($sql, ['utilisateurPseudo' => $utilisateurPseudo], true), 
+                    $this->className
+                );
+        }
+
     }

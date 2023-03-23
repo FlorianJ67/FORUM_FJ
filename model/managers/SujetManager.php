@@ -27,8 +27,6 @@
                     DAO::select($sql, ['id' => $id], true), 
                     $this->className
                 );
-
         }
-
 
     }

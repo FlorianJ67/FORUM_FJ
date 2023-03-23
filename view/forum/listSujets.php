@@ -29,7 +29,7 @@ if (isset($result["data"]['categorieActuel'])) {
                 }
             }?>
         </select>
-        <input type="submit">
+        <input type="submit" value="Rechercher">
     </form> 
     
     <!-- Liste des sujets -->
@@ -62,12 +62,20 @@ if (isset($result["data"]['categorieActuel'])) {
         </tbody>
     </table>
     <?php
-    if (isset($categorieActuel)) {
+    if (isset($categorieActuel) ||isset($id)) {
     ?>
     <form action="index.php?ctrl=sujet&action=nouveauSujet&id=<?= $categorieActuel ?>" method="post">
+        <div>
+            <label for="titreSujet">Titre: </label>
             <input type="text" name="titreSujet">
+        </div>
+        <div>
+            <label for="textMessage">Message: </label>
             <textarea name="textMessage" rows= "3"></textarea>
+        </div>
+        <div>
             <input type="submit" name="submit">
+        </div>
     </form>
     <?php
     }

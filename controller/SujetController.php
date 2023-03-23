@@ -125,7 +125,7 @@
 
                 if($textMessage && $utilisateur) {
 
-                    $messageManager->add(["sujet_id" => $id,"utilisateur_id" => $utilisateur,"contenu" => $textMessage]);
+                    $messageManager->add(["sujet_id" => $id,"utilisateur_id" => $utilisateur,"contenu" => $textMessage,"etat" => 1]);
 
                     $this->redirectTo('sujet', 'sujetsThread', $id);
                 }
