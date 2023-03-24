@@ -35,11 +35,13 @@
              return [
                  "view" => VIEW_DIR."forum/detailUtilisateur.php",
                  "data" => [
-                     "utilisateur" => $utilisateurManager->findOneById($id),
+                     "user" => $utilisateurManager->findOneById($id),
                      "messages" => $messageManager->listMessagesParUtilisateur($id)
                  ]
              ];
          
         }
+
+
 
     }

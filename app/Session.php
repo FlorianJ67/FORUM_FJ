@@ -29,12 +29,12 @@
         /**
         *   met un utilisateur dans la session (pour le maintenir connecté)
         */
-        public static function setUtilisateur($user){
-            $_SESSION["utilisateur"] = $user;
+        public static function setUser($user){
+            $_SESSION["user"] = $user;
         }
 
-        public static function getUtilisateur(){
-            return (isset($_SESSION['utilisateur'])) ? $_SESSION['utilisateur'] : false;
+        public static function getUser(){
+            return (isset($_SESSION['user'])) ? $_SESSION['user'] : false;
         }
 
         // public static function isAdmin(){

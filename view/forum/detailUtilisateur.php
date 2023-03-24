@@ -1,6 +1,6 @@
 <?php
 
-$utilisateur = $result["data"]['utilisateur'];
+$utilisateur = $result["data"]['user'];
 $messages = $result["data"]['messages'];
     
 ?>

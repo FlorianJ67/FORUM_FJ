@@ -24,7 +24,7 @@
             if(isset($_POST['submit'])) {
                 // on filtre les input
 
-                $mail = filter_input(INPUT_POST, "mail", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $mail = filter_input(INPUT_POST, "mail", FILTER_SANITIZE_EMAIL);
                 
                 $pseudo = filter_input(INPUT_POST, "pseudo", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
@@ -95,26 +95,51 @@
 
                     $this->redirectTo('utilisateur', 'detailUtilisateur', $idUser);
                 }
+            } else {
+                return [
+                    "view" => VIEW_DIR."forum/register.php",
+                ];                 
             }
+
+ 
         }
 
+
         public function connexionUtilisateur(){
-          
             $utilisateurManager = new UtilisateurManager();
- 
-            if(isset($_POST['submit'])) {
-                // on filtre les input
 
-                $mail = filter_input(INPUT_POST, "mail", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                
-                $pseudo = filter_input(INPUT_POST, "pseudo", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            if( isset($_POST['submitConnexion'])) {
 
-                $mdp = filter_input(INPUT_POST, "mdp", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                $motDePasse = password_hash($mdp, PASSWORD_DEFAULT);
+                $email = filter_input(INPUT_POST, 'mail', FILTER_SANITIZE_EMAIL);
+                $motDePasse = filter_input(INPUT_POST, 'motDePasse', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
+                if($email && $motDePasse) {
 
+                    $dbPass = $utilisateurManager->checkUtilisateurMail($email);
+
+                    if ($dbPass) {
+                        
+                        $hash = $dbPass->getMotDePasse();
+                        $utilisateur = $utilisateurManager->checkUtilisateurMail($email);
+
+                        if(password_verify($motDePasse, $hash)) {
+
+                            Session::setUser($utilisateur);
+
+                            return [
+                                "view" => VIEW_DIR . "forum/detailUtilisateur.php"
+                            ];
+
+                        }
+                    }
+                }
+            } else {
+                return [
+                    "view" => VIEW_DIR."forum/login.php",
+                ];                  
             }
-         
+
+
         }
 
     }

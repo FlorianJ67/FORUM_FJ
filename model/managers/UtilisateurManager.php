@@ -57,4 +57,20 @@
                 );
         }
 
+        public function checkUtilisateurMotDePasse($utilisateurMail){
+            parent::connect();
+
+                $sql = "SELECT *
+                        FROM ".$this->tableName."
+                        WHERE mail = :utilisateurMail
+                        ";
+
+                return $this->getOneOrNullResult(
+                    DAO::select($sql, ['utilisateurMail' => $utilisateurMail], true), 
+                    $this->className
+                );
+        }
+
+
+
     }

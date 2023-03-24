@@ -32,7 +32,7 @@
                     <div id="nav-right">
                     <?php
                         
-                        if(App\Session::getUtilisateur()){
+                        if(App\Session::getUser()){
                             ?>
                             <a href="/security/viewProfile.html"><span class="fas fa-user"></span>&nbsp;<?= App\Session::getUser()?></a>
                             <a href="/security/logout.html">Déconnexion</a>
@@ -42,8 +42,8 @@
                             ?>
                             <a href="index.php?ctrl=sujet&action=listSujets">la liste des topics</a>
                             <a href="index.php?ctrl=categorie&action=listCategories">la liste des catégories</a>
-                            <a href="index.php?ctrl=security">Inscription</a>
-                            <a href="./view/security/login.php">Connexion</a>
+                            <a href="index.php?ctrl=security&action=ajoutUtilisateur">Inscription</a>
+                            <a href="index.php?ctrl=security&action=loginUtilisateur">Connexion</a>
                         <?php
                         }
                    
