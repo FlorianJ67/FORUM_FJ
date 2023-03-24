@@ -29,7 +29,7 @@
                 );
         }
 
-        public function checkUtilisateurMail($utilisateurMail){
+        public function checkUtilisateurParMail($utilisateurMail){
             parent::connect();
 
                 $sql = "SELECT *

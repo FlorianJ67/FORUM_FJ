@@ -12,7 +12,7 @@
         public function index(){
  
              return [
-                 "view" => VIEW_DIR."forum/register.php",
+                 "view" => VIEW_DIR."forum/login.php",
 
              ];   
          }
@@ -40,7 +40,7 @@
                 
                 // on verifie le mail
                 if ($mail) {
-                    if ($utilisateurManager->checkUtilisateurMail($mail)) {
+                    if ($utilisateurManager->checkUtilisateurParMail($mail)) {
                         $error = "Le mail est déjà utilisé";
                     }                    
                 }
@@ -115,12 +115,12 @@
 
                 if($email && $motDePasse) {
 
-                    $dbPass = $utilisateurManager->checkUtilisateurMail($email);
+                    $dbPass = $utilisateurManager->checkUtilisateurParMail($email);
 
                     if ($dbPass) {
                         
                         $hash = $dbPass->getMotDePasse();
-                        $utilisateur = $utilisateurManager->checkUtilisateurMail($email);
+                        $utilisateur = $utilisateurManager->checkUtilisateurParMail($email);
 
                         if(password_verify($motDePasse, $hash)) {
 
