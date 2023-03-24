@@ -59,7 +59,7 @@
             
                 // on compare le mdp et le 'vérifier' mdp
                 if(isset($mdp1) && isset($mdp2)) {
-                    if($mdp1 == null || $mdp2 = null) {
+                    if($mdp1 == null || $mdp2 == null) {
                         $motDePasse = null;
                         if ($error) {
                             $error .= "<br>Les mots de passes ne correspondent pas";

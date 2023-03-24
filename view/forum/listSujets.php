@@ -32,7 +32,7 @@ if (isset($result["data"]['categorieActuel'])) {
         <input type="submit" value="Rechercher">
     </form> 
     
-    <!-- Liste des sujets -->
+    <!-- Tableau des sujets -->
     <table>
         <thead>
             <tr>
@@ -47,11 +47,12 @@ if (isset($result["data"]['categorieActuel'])) {
             if (!$sujets) {
                 echo "<tr><td><p style='color: red; font-weight: bold; text-align: center'>Aucun sujet n'a été trouver</p></td></tr>";
             } else {
+                // liste des sujets
                 foreach($sujets as $sujet ){
                     ?>
                 <tr>    
                     <td><a href="index.php?ctrl=sujet&action=sujetsThread&id=<?=$sujet->getId()?>"><?=$sujet->getTitre()?></a></td>
-                    <td>non</td>
+                    <td>toujours non enfaite</td>
                     <td><?=$sujet->getDateDeCreation()?></td>
                     <td><a href="index.php?ctrl=utilisateur&action=detailUtilisateur&id=<?= $sujet->getUtilisateur()->getId()?>"><?=$sujet->getUtilisateur()->getPseudo() ?></a></td>
                 </tr>
@@ -62,6 +63,7 @@ if (isset($result["data"]['categorieActuel'])) {
         </tbody>
     </table>
     <?php
+    // formulaire d'ajout de sujet si une catégorie est selectionner (via le $categorieActuel(méthode post au dessus du tableau) ou bien l'id de l'url)
     if (isset($categorieActuel) ||isset($id)) {
     ?>
     <form action="index.php?ctrl=sujet&action=nouveauSujet&id=<?= $categorieActuel ?>" method="post">

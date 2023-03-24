@@ -64,12 +64,11 @@
                     "view" => VIEW_DIR."forum/listSujets.php",
                     "data" => [
                         "categories" => $categorieManager->findAll(["nom", "DESC"]),
-                        "sujets" => $sujetManager->findAll(["titre", "DESC"])
+                        "sujets" => $sujetManager->findAll(["titre", "DESC"]),
                     ]
                 ];
             }
 
-         
         }
 
         public function sujetsThread($id){
@@ -85,7 +84,6 @@
                 ];
             } 
 
-         
         }
 
         public function nouveauSujet($id){
@@ -125,7 +123,7 @@
 
                 if($textMessage && $utilisateur) {
 
-                    $messageManager->add(["sujet_id" => $id,"utilisateur_id" => $utilisateur,"contenu" => $textMessage,"etat" => 1]);
+                    $messageManager->add(["sujet_id" => $id, "utilisateur_id" => $utilisateur, "contenu" => $textMessage, "etat" => 1]);
 
                     $this->redirectTo('sujet', 'sujetsThread', $id);
                 }

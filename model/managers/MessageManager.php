@@ -30,6 +30,23 @@
 
         }
 
+        public function dernierMessagesParSujet($id){
+            parent::connect();
+
+                $sql = "SELECT *
+                        FROM ".$this->tableName."
+                        WHERE sujet_id = :id
+                        ORDER BY dateDeCreation DESC
+                        LIMIT 1
+                        ";
+
+                return $this->getMultipleResults(
+                    DAO::select($sql, ['id' => $id], true), 
+                    $this->className
+                );
+
+        }
+
         public function listMessagesParUtilisateur($id){
             parent::connect();
 

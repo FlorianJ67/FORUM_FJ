@@ -12,7 +12,7 @@ $messages = $result["data"]['messages'];
     <div style="width: 33%; margin: 0 auto;">
         <?php 
         if (isset($messages)) {
-
+            // liste des 5 derniers messages de l'utilisateur
             foreach($messages as $message) {
             ?>
                 <div class="message-box">

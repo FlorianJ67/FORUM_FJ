@@ -8,7 +8,7 @@ if(isset($result["data"]['error'])) {
     
 ?>
 
-
+<h2>Inscription</h2>
 <div class="gestionnaireUtilisateur">
 
     <form action="index.php?ctrl=security&action=ajoutUtilisateur" method="post">

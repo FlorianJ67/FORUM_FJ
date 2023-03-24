@@ -8,7 +8,7 @@ if(isset($result["data"]['error'])) {
     
 ?>
 
-
+<h2>Connexion</h2>
 <div class="gestionnaireUtilisateur">
 
     <form action="index.php?ctrl=security&action=connexionUtilisateur" method="post">
@@ -19,7 +19,7 @@ if(isset($result["data"]['error'])) {
         </div>
         <div>
             <label for="mdp">Mot de passe *</label>
-            <input type="password" name="mdp" required>
+            <input type="password" name="motDePasse" required>
         </div>
         <div>
             <input type="submit" name="submit">
