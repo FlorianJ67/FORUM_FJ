@@ -100,7 +100,6 @@
                     "view" => VIEW_DIR."forum/register.php",
                 ];                 
             }
-
  
         }
 
@@ -108,18 +107,19 @@
         public function connexionUtilisateur(){
             $utilisateurManager = new UtilisateurManager();
 
-            if( isset($_POST['submitConnexion'])) {
+            if( isset($_POST['submit'])) {
 
                 $email = filter_input(INPUT_POST, 'mail', FILTER_SANITIZE_EMAIL);
                 $motDePasse = filter_input(INPUT_POST, 'motDePasse', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
                 if($email && $motDePasse) {
 
+                    // possible erreur ici:  Deprecated: password_verify(): Passing null to parameter #2 ($hash) of type string is deprecated in D:\DevWeb\laragon\www\FORUM_FJ\controller\SecurityController.php on line 125
                     $dbPass = $utilisateurManager->checkUtilisateurParMail($email);
 
                     if ($dbPass) {
                         
-                        $hash = $dbPass->getMotDePasse();
+                        $hash = $dbPass->getMdp();
                         $utilisateur = $utilisateurManager->checkUtilisateurParMail($email);
 
                         if(password_verify($motDePasse, $hash)) {
@@ -138,7 +138,6 @@
                     "view" => VIEW_DIR."forum/login.php",
                 ];                  
             }
-
 
         }
 
