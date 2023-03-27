@@ -10,6 +10,8 @@
         private $mail;
         private $motDePasse;
         private $dateInscription;
+        private $role;
+        private $ban;
 
 
         public function __construct($data){         
@@ -106,5 +108,41 @@
             return $this;
         }
 
+        /**
+         * Get the value of role
+         */ 
+        public function getRole()
+        {
+                return $this->role;
+        }
 
+        /**
+         * Set the value of role
+         *
+         * @return  self
+         */ 
+        public function setRole($role)
+        {
+                $this->role = $role;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of ban
+         */
+        public function getBan()
+        {
+                return $this->ban;
+        }
+
+        /**
+         * Set the value of ban
+         */
+        public function setBan($ban): self
+        {
+                $this->ban = $ban;
+
+                return $this;
+        }
     }

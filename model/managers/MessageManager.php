@@ -64,5 +64,15 @@
 
         }
 
+        public function supprimerToutLesMessagesParSujetId($id){
+            parent::connect();
+
+                $sql = "DELETE FROM ".$this->tableName."
+                        WHERE sujet_id = :id
+                        ";
+
+                    DAO::delete($sql, ['id' => $id]);
+
+        }
 
     }

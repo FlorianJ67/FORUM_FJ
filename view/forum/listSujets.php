@@ -8,6 +8,11 @@ if (isset($result["data"]['categorieActuel'])) {
 } else if (isset($id)){
     $categorieActuel = $id;
 }
+if (isset($_SESSION['user'])) {
+    $currentUser = $_SESSION['user'];
+} else {
+    $currentUser = null;
+}
 
 
 ?>
@@ -35,13 +40,14 @@ if (isset($result["data"]['categorieActuel'])) {
     </form> 
     
     <!-- Tableau des sujets -->
-    <table>
+    <table id="listSujets">
         <thead>
             <tr>
                 <th>Sujet</th>
                 <th>Dernière activité</th>
                 <th>Crée le</th>
                 <th>Créateur</th>
+                <th id="deleteTopic">Supp.</th>
             </tr>
         </thead>
         <tbody>
@@ -57,6 +63,15 @@ if (isset($result["data"]['categorieActuel'])) {
                     <td>toujours non enfaite</td>
                     <td><?=$sujet->getDateDeCreation()?></td>
                     <td><a href="index.php?ctrl=utilisateur&action=detailUtilisateur&id=<?= $sujet->getUtilisateur()->getId()?>"><?=$sujet->getUtilisateur()->getPseudo() ?></a></td>
+                    <?php
+                        if($currentUser) {
+                    if(($currentUser->getRole() === "Admin") || ($currentUser->getId() == $sujet->getUtilisateur()->getId())) {
+                    ?>
+                        <td class="deleteTopicBtn"><a href="index.php?ctrl=sujet&action=supprimerSujet&id=<?=$sujet->getId()?>">X</a></td>
+                    <?php
+                        }
+                    }
+                    ?>
                 </tr>
                     <?php
                 }

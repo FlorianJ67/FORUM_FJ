@@ -112,6 +112,14 @@
                 }
             )
         })*/
+        
+        // masque la colonne supp. si aucun sujet ne peut être supprimer
+        // !!! ne marche pas !!!
+        $(function(){
+            if ($("#listSujets > tbody > tr").length <= 4) {
+                $("#deleteTopic").hide();
+            }
+        });
     </script>
 </body>
 </html>

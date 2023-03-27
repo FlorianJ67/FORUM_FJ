@@ -110,12 +110,8 @@
                         $IdDernierSujetAjouter = $sujetManager->add(["titre" => $titreSujet, "categorie_id" => $id,"utilisateur_id" => $utilisateur, "etat" => 1]);
                         // création du 1er message
                         $messageManager->add(["sujet_id" => $IdDernierSujetAjouter,"utilisateur_id" => $utilisateur,"contenu" => $textMessage]);
-                        return [
-                            "view" => VIEW_DIR."forum/listMessages.php",
-                            "data" => [
-                                "messages" => $messageManager->listMessagesParSujet($IdDernierSujetAjouter),
-                            ]
-                        ];
+
+                        $this->redirectTo("sujet", "sujetsThread", $IdDernierSujetAjouter);
                     }
                 }
             } else {
@@ -151,6 +147,19 @@
                 }
             }
          
+        }
+
+        public function supprimerSujet($id){
+
+            $sujetManager = new SujetManager();
+            $messageManager = new MessageManager();
+            $categorieManager = new CategorieManager();
+
+            $messageManager->supprimerToutLesMessagesParSujetId($id);
+            $sujetManager->supprimerSujetParId($id);
+
+            $this->redirectTo('sujet','sujetsParCategorie');
+
         }
     }
 

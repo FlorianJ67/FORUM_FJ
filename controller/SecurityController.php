@@ -6,6 +6,9 @@
     use App\AbstractController;
     use App\ControllerInterface;
     use Model\Managers\UtilisateurManager;
+    use Model\Managers\SujetManager;
+    use Model\Managers\CategorieManager;
+    use Model\Managers\MessageManager;
     
     class SecurityController extends AbstractController implements ControllerInterface{
 
@@ -20,6 +23,7 @@
         public function ajoutUtilisateur(){
           
             $utilisateurManager = new UtilisateurManager();
+            $messageManager = new MessageManager();
  
             if(isset($_POST['submit'])) {
                 // on filtre les input
@@ -91,9 +95,15 @@
 
                 if($pseudo && $mail && $motDePasse) {
 
-                    $idUser = $utilisateurManager->add(["pseudo" => $pseudo,"mail" => $mail,"motDePasse" => $motDePasse]);
+                    $newUser = $utilisateurManager->add(["pseudo" => $pseudo,"mail" => $mail,"motDePasse" => $motDePasse]);
 
-                    $this->redirectTo('utilisateur', 'detailUtilisateur', $idUser);
+                    return [
+                        "view" => VIEW_DIR . "forum/detailUtilisateur.php",
+                        "data" => [
+                            "user" => $utilisateurManager->trouveUtilisateurParId($newUser),
+                            "messages" => $messageManager->listMessagesParUtilisateur($newUser)
+                        ]
+                    ];
                 }
             } else {
                 return [
@@ -106,6 +116,7 @@
 
         public function connexionUtilisateur(){
             $utilisateurManager = new UtilisateurManager();
+            $messageManager = new MessageManager();
 
             if( isset($_POST['submit'])) {
 
@@ -127,7 +138,8 @@
                             return [
                                 "view" => VIEW_DIR . "forum/detailUtilisateur.php",
                                 "data" => [
-                                    "user" => $utilisateur
+                                    "user" => $utilisateur,
+                                    "messages" => $messageManager->listMessagesParUtilisateur($utilisateur->getId())
                                 ]
                             ];
 
@@ -148,12 +160,12 @@
 
         public function deconnexionUtilisateur(){
 
+            $categorieManager = new CategorieManager();
+            $sujetManager = new SujetManager();
+
             session_destroy();
 
-                return [
-                    "view" => VIEW_DIR . "forum/listSujets.php"
-                ]; 
-
+            $this->redirectTo("sujet","index");
         }
 
     }

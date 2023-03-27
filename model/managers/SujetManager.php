@@ -43,4 +43,15 @@
                 );
         }
 
+        public function supprimerSujetParId($id){
+            parent::connect();
+
+                $sql = "DELETE FROM ".$this->tableName."
+                        WHERE id_sujet = :id
+                        ";
+
+                    DAO::delete($sql, ['id' => $id]);
+
+        }
+
     }

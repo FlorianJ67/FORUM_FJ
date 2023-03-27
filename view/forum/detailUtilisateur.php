@@ -1,7 +1,11 @@
 <?php
 
 $utilisateur = $result["data"]['user'];
-$messages = $result["data"]['messages'];
+if(isset($result["data"]['messages'])) {
+    $messages = $result["data"]['messages'];
+} else {
+    $messages = null;
+}
     
 ?>
 
@@ -11,7 +15,7 @@ $messages = $result["data"]['messages'];
     <h2 style="text-align:center;">Dernier messages</h2>
     <div style="width: 33%; margin: 0 auto;">
         <?php 
-        if (isset($messages)) {
+        if ($messages) {
             // liste des 5 derniers messages de l'utilisateur
             foreach($messages as $message) {
             ?>
@@ -28,6 +32,12 @@ $messages = $result["data"]['messages'];
 
             <?php
             }
+        } else {
+            ?>
+            <div class="message-box">
+                <p>L'utilisateur n'a pas encore écrit de messages</p>
+            </div>
+        <?php
         }
         ?>
     </div>
