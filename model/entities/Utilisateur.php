@@ -8,7 +8,7 @@
         private $id;
         private $pseudo;
         private $mail;
-        private $mot_de_passe;
+        private $motDePasse;
         private $dateInscription;
 
 
@@ -79,9 +79,9 @@
         /**
          * Get the value of mot_de_passe
          */ 
-        public function getMdp()
+        public function getMotDePasse()
         {
-                return $this->mot_de_passe;
+                return $this->motDePasse;
         }
 
         /**
@@ -89,19 +89,19 @@
          *
          * @return  self
          */ 
-        public function setMdp($mot_de_passe)
+        public function setMotDePasse($mot_de_passe)
         {
-                $this->mot_de_passe = $mot_de_passe;
+                $this->motDePasse = $mot_de_passe;
 
                 return $this;
         }
 
-        public function getCreationdate(){
+        public function getDateInscription(){
             $formattedDate = $this->dateInscription->format("d/m/Y, H:i:s");
             return $formattedDate;
         }
 
-        public function setCreationdate($date){
+        public function setDateInscription($date){
             $this->dateInscription = new \DateTime($date);
             return $this;
         }

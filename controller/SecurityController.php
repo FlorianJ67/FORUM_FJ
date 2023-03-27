@@ -111,33 +111,38 @@
 
                 $email = filter_input(INPUT_POST, 'mail', FILTER_SANITIZE_EMAIL);
                 $motDePasse = filter_input(INPUT_POST, 'motDePasse', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
+                
                 if($email && $motDePasse) {
-
-                    // possible erreur ici:  Deprecated: password_verify(): Passing null to parameter #2 ($hash) of type string is deprecated in D:\DevWeb\laragon\www\FORUM_FJ\controller\SecurityController.php on line 125
-                    $dbPass = $utilisateurManager->checkUtilisateurParMail($email);
-
-                    if ($dbPass) {
+                    
+                    $utilisateur = $utilisateurManager->checkUtilisateurParMail($email);
+                    
+                    if ($utilisateur) {
                         
-                        $hash = $dbPass->getMdp();
-                        $utilisateur = $utilisateurManager->checkUtilisateurParMail($email);
+                        $hash = $utilisateur->getMotDePasse();
 
                         if(password_verify($motDePasse, $hash)) {
 
                             Session::setUser($utilisateur);
 
                             return [
-                                "view" => VIEW_DIR . "forum/detailUtilisateur.php"
+                                "view" => VIEW_DIR . "forum/detailUtilisateur.php",
+                                "data" => [
+                                    "user" => $utilisateur
+                                ]
                             ];
 
                         }
+                    } else {
+                        $error = "aucun mail ne correspond";
+                        return [
+                            "view" => VIEW_DIR."forum/login.php",
+                            "data" => [
+                                "error" => $error
+                            ]
+                        ];                  
                     }
                 }
-            } else {
-                return [
-                    "view" => VIEW_DIR."forum/login.php",
-                ];                  
-            }
+            } 
 
         }
 

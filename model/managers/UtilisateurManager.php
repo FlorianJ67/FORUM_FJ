@@ -38,7 +38,7 @@
                         ";
 
                 return $this->getOneOrNullResult(
-                    DAO::select($sql, ['utilisateurMail' => $utilisateurMail], true), 
+                    DAO::select($sql, ['utilisateurMail' => $utilisateurMail], false), 
                     $this->className
                 );
         }
@@ -52,7 +52,7 @@
                         ";
 
                 return $this->getOneOrNullResult(
-                    DAO::select($sql, ['utilisateurPseudo' => $utilisateurPseudo], true), 
+                    DAO::select($sql, ['utilisateurPseudo' => $utilisateurPseudo], false), 
                     $this->className
                 );
         }
@@ -66,7 +66,7 @@
                         ";
 
                 return $this->getOneOrNullResult(
-                    DAO::select($sql, ['utilisateurMail' => $utilisateurMail], true), 
+                    DAO::select($sql, ['utilisateurMail' => $utilisateurMail], false), 
                     $this->className
                 );
         }

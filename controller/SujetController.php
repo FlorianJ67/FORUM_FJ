@@ -96,8 +96,7 @@
                 $titreSujet = filter_input(INPUT_POST, "titreSujet", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $textMessage = filter_input(INPUT_POST, "textMessage", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-
-                $utilisateur = 2;
+                $utilisateur = Session::getUser()->getId();
 
                 if($titreSujet && $textMessage && $utilisateur) {
 
@@ -119,7 +118,7 @@
 
                 $textMessage = filter_input(INPUT_POST, "textMessage", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-                $utilisateur = 2;
+                $utilisateur = Session::getUser()->getId();
 
                 if($textMessage && $utilisateur) {
 
