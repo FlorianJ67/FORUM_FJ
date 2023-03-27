@@ -18,13 +18,27 @@
             parent::connect();
 
                 $sql = "SELECT *
-                        FROM ".$this->tableName." a
-                        WHERE a.categorie_id = :id
+                        FROM ".$this->tableName." s
+                        WHERE s.categorie_id = :id
                         ORDER BY a.dateDeCreation
                         ";
 
                 return $this->getMultipleResults(
                     DAO::select($sql, ['id' => $id], true), 
+                    $this->className
+                );
+        }
+
+        public function findSujetParId($id){
+            parent::connect();
+
+                $sql = "SELECT *
+                        FROM ".$this->tableName." s
+                        WHERE s.id_sujet = :id
+                        ";
+
+                return $this->getOneOrNullResult(
+                    DAO::select($sql, ['id' => $id], false), 
                     $this->className
                 );
         }

@@ -17,7 +17,7 @@ $messages = $result["data"]['messages'];
             ?>
                 <div class="message-box">
                     <div>
-                        <p><?= $message->getSujet()->getTitre() ?></p>                    
+                        <a href="index.php?ctrl=sujet&action=sujetsThread&id=<?= $message->getSujet()->getId() ?>"><?= $message->getSujet()->getTitre() ?></a>                    
                     </div>
                     <div>
                         <p><?= $message->getContenu() ?></p>

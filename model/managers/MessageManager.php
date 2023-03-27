@@ -53,7 +53,7 @@
                 $sql = "SELECT *
                         FROM ".$this->tableName."
                         WHERE utilisateur_id = :id
-                        ORDER BY dateDeCreation
+                        ORDER BY dateDeCreation DESC
                         LIMIT 5
                         ";
 

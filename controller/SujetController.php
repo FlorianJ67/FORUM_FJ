@@ -58,7 +58,7 @@
                     ]
                 ];
 
-            // vue par defaut id=null ou sans id spécifier
+            // vue par defaut sans id spécifier
             } else {
                 return [
                     "view" => VIEW_DIR."forum/listSujets.php",
@@ -73,13 +73,15 @@
 
         public function sujetsThread($id){
           
+            $sujetManager = new SujetManager();
             $messageManager = new MessageManager();
 
             if($id) {
                 return [
                     "view" => VIEW_DIR."forum/listMessages.php",
                     "data" => [
-                        "messages" => $messageManager->listMessagesParSujet($id)
+                        "messages" => $messageManager->listMessagesParSujet($id),
+                        "sujet" => $sujetManager->findSujetParId($id)
                     ]
                 ];
             } 
@@ -93,18 +95,25 @@
  
             if(isset($_POST['submit'])) {
 
+                // titre
                 $titreSujet = filter_input(INPUT_POST, "titreSujet", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                // 1er message
                 $textMessage = filter_input(INPUT_POST, "textMessage", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
+                // utilisateur
                 $utilisateur = Session::getUser()->getId();
 
                 if($titreSujet && $textMessage && $utilisateur) {
-
-                    $IdDernierSujetAjouter = $sujetManager->add(["titre" => $titreSujet, "categorie_id" => $id,"utilisateur_id" => $utilisateur]);
-
+                    // id du sujet créer     //création du sujet
+                    $IdDernierSujetAjouter = $sujetManager->add(["titre" => $titreSujet, "categorie_id" => $id,"utilisateur_id" => $utilisateur, "etat" => 1]);
+                    // création du 1er message
                     $messageManager->add(["sujet_id" => $IdDernierSujetAjouter,"utilisateur_id" => $utilisateur,"contenu" => $textMessage]);
 
-                    $this->redirectTo('sujet', 'sujetsThread', $IdDernierSujetAjouter);
+                    return [
+                        "view" => VIEW_DIR."forum/listMessages.php",
+                        "data" => [
+                            "messages" => $messageManager->listMessagesParSujet($IdDernierSujetAjouter)
+                        ]
+                    ];
                 }
             }
          
@@ -116,13 +125,14 @@
  
             if(isset($_POST['submit'])) {
 
+                // message
                 $textMessage = filter_input(INPUT_POST, "textMessage", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
+                // utilisateur
                 $utilisateur = Session::getUser()->getId();
 
                 if($textMessage && $utilisateur) {
-
-                    $messageManager->add(["sujet_id" => $id, "utilisateur_id" => $utilisateur, "contenu" => $textMessage, "etat" => 1]);
+                    // création du message
+                    $messageManager->add(["sujet_id" => $id, "utilisateur_id" => $utilisateur, "contenu" => $textMessage]);
 
                     $this->redirectTo('sujet', 'sujetsThread', $id);
                 }

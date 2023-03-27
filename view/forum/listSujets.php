@@ -5,6 +5,8 @@ $sujets = $result["data"]['sujets'];
 
 if (isset($result["data"]['categorieActuel'])) {
     $categorieActuel = $result["data"]['categorieActuel'];
+} else if (isset($id)){
+    $categorieActuel = $id;
 }
 
 
@@ -64,7 +66,7 @@ if (isset($result["data"]['categorieActuel'])) {
     </table>
     <?php
     // formulaire d'ajout de sujet si une catégorie est selectionner (via le $categorieActuel(méthode post au dessus du tableau) ou bien l'id de l'url)
-    if (isset($categorieActuel) ||isset($id)) {
+    if (isset($categorieActuel) || isset($id)) {
     ?>
     <form action="index.php?ctrl=sujet&action=nouveauSujet&id=<?= $categorieActuel ?>" method="post">
         <div>

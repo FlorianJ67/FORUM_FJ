@@ -1,15 +1,14 @@
 <?php
 
+$sujet = $result["data"]['sujet'];
 $messages = $result["data"]['messages'];
-
     
 ?>
 
-<h1>liste des sujets</h1>
+<h1>liste des messages du sujet <?= $sujet->getTitre() ?></h1>
 
 <div id="forumList">
     
-
     <?php
     if (!$messages) {
         echo "<p>Aucun message n'a été trouver</p>";
