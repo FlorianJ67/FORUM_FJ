@@ -92,29 +92,42 @@
           
             $sujetManager = new SujetManager();
             $messageManager = new MessageManager();
+            $categorieManager = new CategorieManager();
  
-            if(isset($_POST['submit'])) {
+            if(isset($_SESSION["user"])) {
 
-                // titre
-                $titreSujet = filter_input(INPUT_POST, "titreSujet", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                // 1er message
-                $textMessage = filter_input(INPUT_POST, "textMessage", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                // utilisateur
-                $utilisateur = Session::getUser()->getId();
+                if(isset($_POST['submit'])) {
 
-                if($titreSujet && $textMessage && $utilisateur) {
-                    // id du sujet créer     //création du sujet
-                    $IdDernierSujetAjouter = $sujetManager->add(["titre" => $titreSujet, "categorie_id" => $id,"utilisateur_id" => $utilisateur, "etat" => 1]);
-                    // création du 1er message
-                    $messageManager->add(["sujet_id" => $IdDernierSujetAjouter,"utilisateur_id" => $utilisateur,"contenu" => $textMessage]);
+                    // titre
+                    $titreSujet = filter_input(INPUT_POST, "titreSujet", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    // 1er message
+                    $textMessage = filter_input(INPUT_POST, "textMessage", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    // utilisateur
+                    $utilisateur = Session::getUser()->getId();
 
-                    return [
-                        "view" => VIEW_DIR."forum/listMessages.php",
-                        "data" => [
-                            "messages" => $messageManager->listMessagesParSujet($IdDernierSujetAjouter)
-                        ]
-                    ];
+                    if($titreSujet && $textMessage && $utilisateur) {
+                        // id du sujet créer     //création du sujet
+                        $IdDernierSujetAjouter = $sujetManager->add(["titre" => $titreSujet, "categorie_id" => $id,"utilisateur_id" => $utilisateur, "etat" => 1]);
+                        // création du 1er message
+                        $messageManager->add(["sujet_id" => $IdDernierSujetAjouter,"utilisateur_id" => $utilisateur,"contenu" => $textMessage]);
+                        return [
+                            "view" => VIEW_DIR."forum/listMessages.php",
+                            "data" => [
+                                "messages" => $messageManager->listMessagesParSujet($IdDernierSujetAjouter),
+                            ]
+                        ];
+                    }
                 }
+            } else {
+                return [
+                    "view" => VIEW_DIR."forum/listSujets.php",
+                    "data" => [
+                        "categories" => $categorieManager->findAll(["nom", "DESC"]),
+                        "sujets" => $sujetManager->findAll(["titre", "DESC"]),
+                        "error" => "Aucun utilisateur n'est connecté"   
+                    ]
+                ];
+
             }
          
         }

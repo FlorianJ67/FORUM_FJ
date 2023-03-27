@@ -40,7 +40,7 @@
                         LIMIT 1
                         ";
 
-                return $this->getMultipleResults(
+                return $this->getOneOrNullResult(
                     DAO::select($sql, ['id' => $id], true), 
                     $this->className
                 );

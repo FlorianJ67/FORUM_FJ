@@ -20,7 +20,7 @@
                 $sql = "SELECT *
                         FROM ".$this->tableName." s
                         WHERE s.categorie_id = :id
-                        ORDER BY a.dateDeCreation
+                        ORDER BY s.dateDeCreation
                         ";
 
                 return $this->getMultipleResults(

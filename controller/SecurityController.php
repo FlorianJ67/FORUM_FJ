@@ -146,4 +146,14 @@
 
         }
 
+        public function deconnexionUtilisateur(){
+
+            session_destroy();
+
+                return [
+                    "view" => VIEW_DIR . "forum/listSujets.php"
+                ]; 
+
+        }
+
     }
