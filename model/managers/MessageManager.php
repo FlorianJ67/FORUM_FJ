@@ -75,4 +75,27 @@
 
         }
 
+        public function supprimerMessageParId($id){
+            parent::connect();
+
+                $sql = "DELETE FROM ".$this->tableName."
+                        WHERE id_message = :id
+                        ";
+                    DAO::delete($sql, ['id' => $id]);
+        }
+
+        public function findMessageParId($id){
+            parent::connect();
+
+                $sql = "SELECT *
+                        FROM ".$this->tableName." m
+                        WHERE m.id_message = :id
+                        ";
+
+                return $this->getOneOrNullResult(
+                    DAO::select($sql, ['id' => $id], false), 
+                    $this->className
+                );
+        }
+
     }

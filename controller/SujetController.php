@@ -161,6 +161,17 @@
 
         }
 
+        public function supprimerMessage($id){
+
+            $messageManager = new MessageManager();
+
+            $idSujet = $messageManager->findMessageParId($id)->getSujet()->getId();
+            $messageManager->supprimerMessageParId($id);
+
+            $this->redirectTo('sujet','sujetsThread', $idSujet);
+
+        }
+
         public function lockSujet($id){
           
             $sujetManager = new SujetManager();

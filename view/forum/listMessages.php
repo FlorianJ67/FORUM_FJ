@@ -3,6 +3,11 @@
 $sujet = $result["data"]['sujet'];
 $messages = $result["data"]['messages'];
     
+if (isset($_SESSION['user'])) {
+    $currentUser = $_SESSION['user'];
+} else {
+    $currentUser = null;
+}
 ?>
 
 <h1>liste des messages du sujet <?= $sujet->getTitre() ?></h1>
@@ -23,12 +28,22 @@ $messages = $result["data"]['messages'];
                 <a class="user-message" href="index.php?ctrl=utilisateur&action=detailUtilisateur&id=<?= $message->getUtilisateur()->getId()?>"><?=$message->getUtilisateur()->getPseudo()?></a>
             </div>
             <div>
+            <?php
+                // boutton supprimer le message
+                if($currentUser) {
+                    if(($currentUser->getRole() === "Admin") || ($currentUser->getId() == $message->getSujet()->getUtilisateur()->getId())) {
+                ?>
+                    <a href="index.php?ctrl=sujet&action=supprimerMessage&id=<?= $message->getId()?>" class="deleteMessage"><i class="fa-solid fa-trash deleteForum-btn"></i></a>
+                <?php
+                }}
+                ?>
 
                 <!-- contenu du message -->
                 <p><?=$message->getContenu()?></p>
 
                 <!-- date du message -->
                 <p class="creation-date"><?=$message->getDateDeCreation()?></p>
+
             </div>
 
         </div>
