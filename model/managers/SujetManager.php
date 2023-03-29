@@ -71,5 +71,4 @@
                         ";
                     DAO::update($sql, ['id' => $id]);
         }
-
     }
