@@ -91,10 +91,10 @@ table tbody td {
     padding: 5px;
 }
 table tbody tr td:first-child {
-    width: 49%;
+    width: 60%;
 }
 table tbody tr td:not(:first-child) {
-    width: 17%;
+    width: 20%;
 }
 table td:not(:last-child) {
     border-right: 1px solid var(--colorThree);
@@ -150,6 +150,10 @@ table tr:nth-child(even) {
     background-color: var(--colorTwo);
     border-radius: 0 10px 10px 10px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+}
+.contenu-message {
+    color: var(--colorFour);
+    display: contents;
 }
 .message-box .creation-date {
     text-align: end;

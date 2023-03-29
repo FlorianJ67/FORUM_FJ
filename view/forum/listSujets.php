@@ -44,7 +44,6 @@ if (isset($_SESSION['user'])) {
         <thead>
             <tr>
                 <th>Sujet</th>
-                <th>Dernière activité</th>
                 <th>Crée le</th>
                 <th>Créateur</th>
             </tr>
@@ -59,7 +58,6 @@ if (isset($_SESSION['user'])) {
                     ?>
                 <tr>    
                     <td><a href="index.php?ctrl=sujet&action=sujetsThread&id=<?=$sujet->getId()?>"><?=$sujet->getTitre()?></a><?php if($sujet->getEtat() == false || $sujet->getEtat() == 0){ ?> <i class="fa-solid fa-lock"></i> <?php } ?></td>
-                    <td>toujours non enfaite</td>
                     <td><?=$sujet->getDateDeCreation()?></td>
                     <td><a href="index.php?ctrl=utilisateur&action=detailUtilisateur&id=<?= $sujet->getUtilisateur()->getId()?>"><?=$sujet->getUtilisateur()->getPseudo() ?></a></td>
                     

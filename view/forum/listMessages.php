@@ -28,6 +28,9 @@ if (isset($_SESSION['user'])) {
                 <a class="user-message" href="index.php?ctrl=utilisateur&action=detailUtilisateur&id=<?= $message->getUtilisateur()->getId()?>"><?=$message->getUtilisateur()->getPseudo()?></a>
             </div>
             <div>
+                <!-- contenu du message -->
+                <p class="contenu-message"><?=$message->getContenu()?></p>
+
             <?php
                 // boutton supprimer le message
                 if($currentUser) {
@@ -37,9 +40,6 @@ if (isset($_SESSION['user'])) {
                 <?php
                 }}
                 ?>
-
-                <!-- contenu du message -->
-                <p><?=$message->getContenu()?></p>
 
                 <!-- date du message -->
                 <p class="creation-date"><?=$message->getDateDeCreation()?></p>
