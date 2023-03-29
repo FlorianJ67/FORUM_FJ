@@ -153,13 +153,25 @@
 
             $sujetManager = new SujetManager();
             $messageManager = new MessageManager();
-            $categorieManager = new CategorieManager();
 
             $messageManager->supprimerToutLesMessagesParSujetId($id);
             $sujetManager->supprimerSujetParId($id);
 
             $this->redirectTo('sujet','sujetsParCategorie');
 
+        }
+
+        public function lockSujet($id){
+          
+            $sujetManager = new SujetManager();
+ 
+            if($sujetManager->findSujetParId($id)->getEtat() == true || $sujetManager->findSujetParId($id)->getEtat() == 1) {
+                $sujetManager->lockSujetParId($id);
+            } else {
+                $sujetManager->unlockSujetParId($id);
+            }
+
+            $this->redirectTo('sujet','sujetsParCategorie');
         }
     }
 

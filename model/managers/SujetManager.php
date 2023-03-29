@@ -49,9 +49,27 @@
                 $sql = "DELETE FROM ".$this->tableName."
                         WHERE id_sujet = :id
                         ";
-
                     DAO::delete($sql, ['id' => $id]);
+        }
 
+        public function lockSujetParId($id){
+            parent::connect();
+
+                $sql = "UPDATE ".$this->tableName."
+                        SET etat = 0
+                        WHERE id_sujet = :id
+                        ";
+                    DAO::update($sql, ['id' => $id]);
+        }
+
+        public function unlockSujetParId($id){
+            parent::connect();
+
+                $sql = "UPDATE ".$this->tableName."
+                        SET etat = 1
+                        WHERE id_sujet = :id
+                        ";
+                    DAO::update($sql, ['id' => $id]);
         }
 
     }

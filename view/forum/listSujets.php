@@ -47,7 +47,6 @@ if (isset($_SESSION['user'])) {
                 <th>Dernière activité</th>
                 <th>Crée le</th>
                 <th>Créateur</th>
-                <th id="deleteTopic">Supp.</th>
             </tr>
         </thead>
         <tbody>
@@ -59,15 +58,17 @@ if (isset($_SESSION['user'])) {
                 foreach($sujets as $sujet ){
                     ?>
                 <tr>    
-                    <td><a href="index.php?ctrl=sujet&action=sujetsThread&id=<?=$sujet->getId()?>"><?=$sujet->getTitre()?></a></td>
+                    <td><a href="index.php?ctrl=sujet&action=sujetsThread&id=<?=$sujet->getId()?>"><?=$sujet->getTitre()?></a><?php if($sujet->getEtat() == false || $sujet->getEtat() == 0){ ?> <i class="fa-solid fa-lock"></i> <?php } ?></td>
                     <td>toujours non enfaite</td>
                     <td><?=$sujet->getDateDeCreation()?></td>
                     <td><a href="index.php?ctrl=utilisateur&action=detailUtilisateur&id=<?= $sujet->getUtilisateur()->getId()?>"><?=$sujet->getUtilisateur()->getPseudo() ?></a></td>
+                    
                     <?php
-                        if($currentUser) {
-                    if(($currentUser->getRole() === "Admin") || ($currentUser->getId() == $sujet->getUtilisateur()->getId())) {
+                    if($currentUser) {
+                        if(($currentUser->getRole() === "Admin") || ($currentUser->getId() == $sujet->getUtilisateur()->getId())) {
                     ?>
-                        <td class="deleteTopicBtn"><a href="index.php?ctrl=sujet&action=supprimerSujet&id=<?=$sujet->getId()?>">X</a></td>
+                            <td><a href="index.php?ctrl=sujet&action=lockSujet&id=<?=$sujet->getId()?>"><i class="fa-solid <?php if($sujet->getEtat() == true || $sujet->getEtat() == 1){?>fa-lock <?php }else {?>fa-lock-open<?php } ?> lockForum-btn"></i></a></td>
+                            <td><a href="index.php?ctrl=sujet&action=supprimerSujet&id=<?=$sujet->getId()?>"><i class="fa-solid fa-trash deleteForum-btn"></i></a></td>
                     <?php
                         }
                     }
