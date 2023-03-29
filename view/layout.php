@@ -113,9 +113,7 @@
                 }
             )
         })*/
-        
-        // masque la colonne supp. si aucun sujet ne peut être supprimer
-        // !!! ne marche pas !!!
+
     </script>
 </body>
 </html>

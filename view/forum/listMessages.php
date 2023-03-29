@@ -32,15 +32,19 @@ $messages = $result["data"]['messages'];
             </div>
 
         </div>
-            <?php
+        <?php
         }
-    }?>
-
-    <!-- formulaire nouveau sujet + 1er message du nouveau sujet -->
-    <form action="index.php?ctrl=sujet&action=nouveauMessage&id=<?=$id?>" method="post">
-            <textarea name="textMessage" rows= "3"></textarea>
-            <input type="submit" name="submit">
-    </form>
+    }
+    if ($sujet->getEtat()) {
+        ?>
+        <!-- formulaire nouveau sujet + 1er message du nouveau sujet -->
+        <form action="index.php?ctrl=sujet&action=nouveauMessage&id=<?=$id?>" method="post">
+                <textarea name="textMessage" rows= "3"></textarea>
+                <input type="submit" name="submit">
+        </form>
+    <?php
+    } 
+    ?>
             
 </div>
 
