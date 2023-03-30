@@ -34,11 +34,13 @@ if (isset($_SESSION['user'])) {
             <?php
                 // boutton supprimer le message
                 if($currentUser) {
-                    if(($currentUser->getRole() === "Admin") || ($currentUser->getId() == $message->getSujet()->getUtilisateur()->getId())) {
+                    if(($currentUser->getRole() === ("admin" || "moderateur")) || ($currentUser->getId() == $message->getUtilisateur()->getId())) {
                 ?>
-                    <a href="index.php?ctrl=sujet&action=supprimerMessage&id=<?= $message->getId()?>" class="deleteMessage"><i class="fa-solid fa-trash deleteForum-btn"></i></a>
+                        <a href="index.php?ctrl=sujet&action=modifierMessage&id=<?= $message->getId()?>" class="modifyMessage"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <a href="index.php?ctrl=sujet&action=supprimerMessage&id=<?= $message->getId()?>" class="deleteMessage"><i class="fa-solid fa-trash deleteForum-btn"></i></a>
                 <?php
-                }}
+                    }
+                }
                 ?>
 
                 <!-- date du message -->
@@ -50,7 +52,7 @@ if (isset($_SESSION['user'])) {
         <?php
         }
     }
-    // on vérifie si le sujet et blocké et si il y a un utilisateur connecté
+    // on vérifie si le sujet est blocké et si il y a un utilisateur connecté
     if ($sujet->getEtat() && isset($currentUser)) {
         ?>
         <!-- formulaire nouveau sujet + 1er message du nouveau sujet -->

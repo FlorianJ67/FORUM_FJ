@@ -146,45 +146,88 @@
                     $this->redirectTo('sujet', 'sujetsThread', $id);
                 }
             }
-         
         }
+        public function modifierMessage($id){
+          
+            $messageManager = new MessageManager();
 
+            // message qui sera modifié
+            $message = $messageManager->findOneById($id);
+ 
+            if(isset($_POST['submit'])) {
+                if(isset($_SESSION["user"])){
+                    // contenu
+                    $textMessage = filter_input(INPUT_POST, "textMessage", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    // utilisateur
+                    $utilisateur = Session::getUser();
+                    // si le role de l'utilisateur est: admin  ou  modérateur    OU que l'utilisateur est l'auteur du message
+                    if ((($utilisateur->getRole() === ("admin" || "moderateur")) || ($utilisateur->getId() == $message->getUtilisateur()->getId())) && $textMessage && $utilisateur) {
+                        // modification du message
+                        $messageManager->modifierMessageParId($id,$textMessage);
+                    }
+                }
+                // redirection au sujet une fois le message modifié
+                $this->redirectTo('sujet', 'sujetsThread', $message->getSujet()->getId());
+            }
+            // redirection vers la page pour modifier le message
+
+            return [
+                "view" => VIEW_DIR."forum/modifierMessage.php",
+                "data" => [
+                    "message" => $message
+                ]
+            ];
+        }
         public function supprimerSujet($id){
 
             $sujetManager = new SujetManager();
             $messageManager = new MessageManager();
 
-            $messageManager->supprimerToutLesMessagesParSujetId($id);
-            $sujetManager->supprimerSujetParId($id);
+            // utilisateur
+            $utilisateur = Session::getUser();
+            $sujet = $sujetManager->findOneById($id);
+
+            // on vérifie si l'utilisateur a les droits
+            if (($utilisateur->getRole() === ("admin" || "moderateur")) || ($utilisateur->getId() === $sujet->getUtilisateur()->getId())) {
+                
+                $messageManager->supprimerToutLesMessagesParSujetId($id);
+                $sujetManager->supprimerSujetParId($id);
+            } 
 
             $this->redirectTo('sujet','sujetsParCategorie');
-
         }
-
         public function supprimerMessage($id){
 
             $messageManager = new MessageManager();
 
-            $idSujet = $messageManager->findMessageParId($id)->getSujet()->getId();
-            $messageManager->supprimerMessageParId($id);
+            // utilisateur
+            $utilisateur = Session::getUser();
+            $message = $messageManager->findOneById($id);
 
+            // on vérifie si l'utilisateur a les droits
+            if (($utilisateur->getRole() === ("admin" || "moderateur")) || ($utilisateur->getId() === $message->getUtilisateur()->getId())) {
+
+                $idSujet = $messageManager->findOneById($id)->getSujet()->getId();
+                $messageManager->supprimerMessageParId($id);
+            }
             $this->redirectTo('sujet','sujetsThread', $idSujet);
-
         }
-
         public function lockSujet($id){
           
             $sujetManager = new SujetManager();
- 
-            if($sujetManager->findSujetParId($id)->getEtat() == true || $sujetManager->findSujetParId($id)->getEtat() == 1) {
-                $sujetManager->lockSujetParId($id);
-            } else {
-                $sujetManager->unlockSujetParId($id);
-            }
 
+            $utilisateur = Session::getUser();
+            $sujet = $sujetManager->findOneById($id);
+
+            // on vérifie si l'utilisateur a les droits
+            if (($utilisateur->getRole() === ("admin" || "moderateur")) || ($utilisateur->getId() === $sujet->getUtilisateur()->getId())) {
+
+                if($sujet->getEtat() == true || $sujet->getEtat() == 1) {
+                    $sujetManager->lockSujetParId($id);
+                } else {
+                    $sujetManager->unlockSujetParId($id);
+                }
+            }
             $this->redirectTo('sujet','sujetsParCategorie');
         }
-
     }
-
-

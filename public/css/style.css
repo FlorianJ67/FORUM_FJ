@@ -133,6 +133,11 @@ table tr:nth-child(even) {
     left: 100%;
     bottom: 100%;
 }
+.modifyMessage {
+    position: sticky;
+    left: 88%;
+    bottom: 100%;
+}
 
 .message-box {
     width: 95%;
