@@ -57,20 +57,6 @@
                 );
         }
 
-        public function trouveUtilisateurParId($idUtilisateur){
-            parent::connect();
-
-                $sql = "SELECT *
-                        FROM ".$this->tableName."
-                        WHERE id_utilisateur = :utilisateurId
-                        ";
-
-                return $this->getOneOrNullResult(
-                    DAO::select($sql, ['utilisateurId' => $idUtilisateur], false), 
-                    $this->className
-                );
-        }
-
         public function checkUtilisateurMotDePasse($utilisateurMail){
             parent::connect();
 
@@ -84,7 +70,5 @@
                     $this->className
                 );
         }
-
-
 
     }

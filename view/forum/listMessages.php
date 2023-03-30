@@ -34,10 +34,10 @@ if (isset($_SESSION['user'])) {
             <?php
                 // boutton supprimer le message
                 if($currentUser) {
-                    if(($currentUser->getRole() === ("admin" || "moderateur")) || ($currentUser->getId() == $message->getUtilisateur()->getId())) {
+                    if(($currentUser->getRole() == ("admin" || "moderateur")) || ($currentUser->getId() == $message->getUtilisateur()->getId())) {
                 ?>
-                        <a href="index.php?ctrl=sujet&action=modifierMessage&id=<?= $message->getId()?>" class="modifyMessage"><i class="fa-regular fa-pen-to-square"></i></a>
-                        <a href="index.php?ctrl=sujet&action=supprimerMessage&id=<?= $message->getId()?>" class="deleteMessage"><i class="fa-solid fa-trash deleteForum-btn"></i></a>
+                        <a href="index.php?ctrl=sujet&action=modifierMessage&id=<?= $message->getId()?>" class="modifyMessage" title="Modifier le message"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <a href="index.php?ctrl=sujet&action=supprimerMessage&id=<?= $message->getId()?>" class="deleteMessage" title="Supprimer le message"><i class="fa-solid fa-trash deleteForum-btn"></i></a>
                 <?php
                     }
                 }

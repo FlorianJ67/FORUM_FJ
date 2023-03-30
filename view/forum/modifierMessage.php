@@ -25,7 +25,7 @@ if (isset($_SESSION['user'])) {
         <?php
             // boutton supprimer le message
             if($currentUser) {
-                if(($currentUser->getRole() === ("admin" || "moderateur")) || ($currentUser->getId() === $message->getSujet()->getUtilisateur()->getId())) {
+                if(($currentUser->getRole() == ("admin" || "moderateur")) || ($currentUser->getId() === $message->getSujet()->getUtilisateur()->getId())) {
         ?>
                 <a href="index.php?ctrl=sujet&action=supprimerMessage&id=<?= $message->getId()?>" class="deleteMessage"><i class="fa-solid fa-trash deleteForum-btn"></i></a>
         <?php
@@ -41,7 +41,7 @@ if (isset($_SESSION['user'])) {
 <?php
 if($currentUser) {
     // on vérifie si le message appartient à l'utilisateur connecté ou si il sagit d'un admin
-    if (($message->getUtilisateur()->getId() === $currentUser->getId()) || $currentUser->getRole() === ("admin" || "moderateur")) {
+    if (($message->getUtilisateur()->getId() === $currentUser->getId()) || $currentUser->getRole() == ("admin" || "moderateur")) {
         ?>
         <!-- formulaire modifier message du -->
         <form action="index.php?ctrl=sujet&action=modifierMessage&id=<?=$id?>" method="post">

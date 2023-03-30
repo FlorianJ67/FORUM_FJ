@@ -63,10 +63,10 @@ if (isset($_SESSION['user'])) {
                     
                     <?php
                     if($currentUser) {
-                        if(($currentUser->getRole() === "Admin") || ($currentUser->getId() == $sujet->getUtilisateur()->getId())) {
+                        if(($currentUser->getRole() == "admin") || ($currentUser->getId() == $sujet->getUtilisateur()->getId())) {
                     ?>
-                            <td><a href="index.php?ctrl=sujet&action=lockSujet&id=<?=$sujet->getId()?>"><i class="fa-solid <?php if($sujet->getEtat() == true || $sujet->getEtat() == 1){?>fa-lock <?php }else {?>fa-lock-open<?php } ?> lockForum-btn"></i></a></td>
-                            <td><a href="index.php?ctrl=sujet&action=supprimerSujet&id=<?=$sujet->getId()?>"><i class="fa-solid fa-trash deleteForum-btn"></i></a></td>
+                            <td><a href="index.php?ctrl=sujet&action=lockSujet&id=<?=$sujet->getId()?>" title="Vérouiller le Sujet"><i class="fa-solid <?php if($sujet->getEtat() == true || $sujet->getEtat() == 1){?>fa-lock <?php }else {?>fa-lock-open<?php } ?> lockForum-btn"></i></a></td>
+                            <td><a href="index.php?ctrl=sujet&action=supprimerSujet&id=<?=$sujet->getId()?>" title="Supprimer le Sujet"><i class="fa-solid fa-trash deleteForum-btn"></i></a></td>
                     <?php
                         }
                     }

@@ -21,23 +21,24 @@
          }
 
         public function ajoutUtilisateur(){
-          
+            // Manager
             $utilisateurManager = new UtilisateurManager();
             $messageManager = new MessageManager();
  
             if(isset($_POST['submit'])) {
-                // on filtre les input
-
+                // Récupération:
+                // -email
                 $mail = filter_input(INPUT_POST, "mail", FILTER_SANITIZE_EMAIL);
-                
+                // -pseudo
                 $pseudo = filter_input(INPUT_POST, "pseudo", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-                // on enregistre le mdp et le 'vérifier' mdp
+                // -mot de passe
                 $mdp1 = filter_input(INPUT_POST, "mdp1", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                // -mot de passe vérification
                 $mdp2 = filter_input(INPUT_POST, "mdp2", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 
-                // on vérifie si les champs n'existe pas déjà en BDD et que les mots de passe sont bien identique
+                // On vérifie si les champs n'existe pas déjà en BDD et que les mots de passe sont bien identique
 
                 // variable qui stock les erreurs pour en afficher plusieurs si nécessaire
                 $error = null;
@@ -63,7 +64,7 @@
             
                 // on compare le mdp et le 'vérifier' mdp
                 if(isset($mdp1) && isset($mdp2)) {
-                    if($mdp1 == null || $mdp2 == null) {
+                    if($mdp1 == (null || '') || $mdp2 == (null || '')) {
                         $motDePasse = null;
                         if ($error) {
                             $error .= "<br>Les mots de passes ne correspondent pas";
@@ -94,13 +95,13 @@
                 }
 
                 if($pseudo && $mail && $motDePasse) {
-
+                    // on créer le nouvel utilisateur et on récupère son ID
                     $newUser = $utilisateurManager->add(["pseudo" => $pseudo,"mail" => $mail,"motDePasse" => $motDePasse]);
-
+                    
                     return [
                         "view" => VIEW_DIR . "forum/detailUtilisateur.php",
                         "data" => [
-                            "user" => $utilisateurManager->trouveUtilisateurParId($newUser),
+                            "user" => $utilisateurManager->findOneById($newUser),
                             "messages" => $messageManager->listMessagesParUtilisateur($newUser)
                         ]
                     ];

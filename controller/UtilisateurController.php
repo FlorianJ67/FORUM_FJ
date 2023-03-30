@@ -24,9 +24,7 @@
                      "sujets" => $sujetManager->findAll(["titre", "DESC"])
                  ]
              ];
-         
          }
-
         public function detailUtilisateur($id){
           
             $utilisateurManager = new UtilisateurManager();
@@ -39,9 +37,5 @@
                      "messages" => $messageManager->listMessagesParUtilisateur($id)
                  ]
              ];
-         
         }
-
-
-
     }
