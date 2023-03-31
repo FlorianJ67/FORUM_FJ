@@ -14,10 +14,28 @@
             parent::connect();
         }
 
+        public function listSujets(){
+            parent::connect();
+
+                $sql = "SELECT *,
+                            (SELECT MAX(m.dateDeCreation) FROM message m WHERE s.id_sujet = m.sujet_id) AS dernierMessage,
+                            (SELECT COUNT(*) FROM message m WHERE s.id_sujet = m.sujet_id) AS nombreMessage
+                        FROM ".$this->tableName." s
+                        ORDER BY s.dateDeCreation
+                        ";
+
+                        return $this->getMultipleResults(
+                            DAO::select($sql, null, true), 
+                            $this->className
+                        );
+        }
+
         public function listSujetsParCategorie($id){
             parent::connect();
 
-                $sql = "SELECT *
+                $sql = "SELECT *,
+                            (SELECT MAX(m.dateDeCreation) FROM message m WHERE s.id_sujet = m.sujet_id) AS dernierMessage,
+                            (SELECT COUNT(*) FROM message m WHERE s.id_sujet = m.sujet_id) AS nombreMessage
                         FROM ".$this->tableName." s
                         WHERE s.categorie_id = :id
                         ORDER BY s.dateDeCreation
@@ -29,12 +47,12 @@
                 );
         }
 
-        public function findSujetParId($id){
+        public function countMessageParSujet($id){
             parent::connect();
 
-                $sql = "SELECT *
-                        FROM ".$this->tableName." s
-                        WHERE s.id_sujet = :id
+                $sql = "SELECT COUNT(*)
+                        FROM message
+                        WHERE sujet_id = :id
                         ";
 
                 return $this->getOneOrNullResult(
@@ -71,4 +89,6 @@
                         ";
                     DAO::update($sql, ['id' => $id]);
         }
+
+
     }

@@ -12,6 +12,9 @@
         private $etat;
         private $categorie;
 
+        private $dernierMessage;
+        private $nombreMessage;
+
         public function __construct($data){         
             $this->hydrate($data);        
         }
@@ -125,4 +128,29 @@
 
                 return $this;
         }
+
+        public function getDernierMessage()
+        {
+                return $this->dernierMessage;
+        }
+
+        public function setDernierMessage($dernierMessage)
+        {
+                $this->dernierMessage = $dernierMessage;
+
+                return $this;
+        }
+
+        public function getNombreMessage()
+        {
+                return $this->nombreMessage;
+        }
+
+        public function setNombreMessage($nombreMessage)
+        {
+                $this->nombreMessage = $nombreMessage;
+
+                return $this;
+        }
+
     }

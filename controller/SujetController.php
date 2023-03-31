@@ -20,7 +20,7 @@
                 "view" => VIEW_DIR."forum/listSujets.php",
                 "data" => [
                     "categories" => $categorieManager->findAll(["nom", "DESC"]),
-                    "sujets" => $sujetManager->findAll(["titre", "DESC"])
+                    "sujets" => $sujetManager->listSujets()
                 ]
             ];
         
@@ -40,8 +40,8 @@
                     "view" => VIEW_DIR."forum/listSujets.php",
                     "data" => [
                         "categories" => $categorieManager->findAll(["nom", "DESC"]),
-                        "sujets" => $sujetManager->listSujetsParCategorie($categorieSelected ),
-                        "categorieActuel" => $categorieSelected,
+                        "sujets" => $sujetManager->listSujetsParCategorie($categorieSelected),
+                        "categorieActuel" => $categorieSelected
                     ]
                 ];
             } else {
@@ -64,7 +64,7 @@
                     "view" => VIEW_DIR."forum/listSujets.php",
                     "data" => [
                         "categories" => $categorieManager->findAll(["nom", "DESC"]),
-                        "sujets" => $sujetManager->findAll(["titre", "DESC"])
+                        "sujets" => $sujetManager->listSujets()
                     ]
                 ];
             }
@@ -79,7 +79,7 @@
                     "view" => VIEW_DIR."forum/listMessages.php",
                     "data" => [
                         "messages" => $messageManager->listMessagesParSujet($id),
-                        "sujet" => $sujetManager->findSujetParId($id)
+                        "sujet" => $sujetManager->findOneById($id)
                     ]
                 ];
             } 
@@ -98,7 +98,7 @@
                     $titreSujet = filter_input(INPUT_POST, "titreSujet", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                     // -1er message
                     $textMessage = filter_input(INPUT_POST, "textMessage", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                    // -utilisateur
+                    // -utilisateur connecté
                     $utilisateur = Session::getUser()->getId();
 
                     if($titreSujet && $textMessage && $utilisateur) {
@@ -157,7 +157,7 @@
                     $utilisateur = Session::getUser();
 
                     // si le role de l'utilisateur est: admin  ou  modérateur    OU que l'utilisateur est l'auteur du message
-                    if ((($utilisateur->getRole() == ("admin" || "moderateur")) || ($utilisateur->getId() == $message->getUtilisateur()->getId())) && $textMessage && $utilisateur) {
+                    if (($utilisateur->getRole() == "admin" || $utilisateur->getRole() == "moderateur" || $utilisateur->getId() == $message->getUtilisateur()->getId()) && $textMessage && $utilisateur) {
                         // modification du message
                         $messageManager->modifierMessageParId($id,$textMessage);
                     }
@@ -183,7 +183,7 @@
             $sujet = $sujetManager->findOneById($id);
 
             //on vérifie si l'utilisateur a les droits admin/modérateur OU si il est l'auteur du sujet
-            if (($utilisateur->getRole() == ("admin" || "moderateur")) || ($utilisateur->getId() === $sujet->getUtilisateur()->getId())) {
+            if ($utilisateur->getRole() == "admin" || $utilisateur->getRole() == "moderateur" || $utilisateur->getId() === $sujet->getUtilisateur()->getId()) {
                 // on supprime les messages du sujet PUIS le sujet
                 $messageManager->supprimerToutLesMessagesParSujetId($id);
                 $sujetManager->supprimerSujetParId($id);
@@ -200,7 +200,7 @@
             $message = $messageManager->findOneById($id);
 
             //on vérifie si l'utilisateur a les droits admin/modérateur OU si il est l'auteur du sujet
-            if (($utilisateur->getRole() == ("admin" || "moderateur")) || ($utilisateur->getId() === $message->getUtilisateur()->getId())) {
+            if ($utilisateur->getRole() == "admin" || $utilisateur->getRole() == "moderateur" || $utilisateur->getId() === $message->getUtilisateur()->getId()) {
                 // on récupère l'id du sujet (pour la redirection au sujetThread)
                 $idSujet = $messageManager->findOneById($id)->getSujet()->getId();
                 // on supprime le message
@@ -218,7 +218,7 @@
             $sujet = $sujetManager->findOneById($id);
 
             //on vérifie si l'utilisateur a les droits admin/modérateur OU si il est l'auteur du sujet
-            if (($utilisateur->getRole() == ("admin" || "moderateur")) || ($utilisateur->getId() === $sujet->getUtilisateur()->getId())) {
+            if ($utilisateur->getRole() == "admin" || $utilisateur->getRole() == "moderateur" || $utilisateur->getId() === $sujet->getUtilisateur()->getId()) {
                 // si le sujet est ouvert
                 if($sujet->getEtat() == true || $sujet->getEtat() == 1) {
                     // on le vérouille
