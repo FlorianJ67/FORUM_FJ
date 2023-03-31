@@ -58,9 +58,14 @@ if (isset($_SESSION['user'])) {
     if ($sujet->getEtat() && isset($currentUser)) {
         ?>
         <!-- formulaire nouveau sujet + 1er message du nouveau sujet -->
-        <form action="index.php?ctrl=sujet&action=nouveauMessage&id=<?=$id?>" method="post">
+        <form action="index.php?ctrl=sujet&action=nouveauMessage&id=<?=$id?>" class="reply" method="post">
+            <div>
+                <label for="textMessage">Envoyer un message:</label> 
                 <textarea name="textMessage" rows= "3"></textarea>
+            </div>
+            <div>
                 <input type="submit" name="submit">
+            </div>
         </form>
     <?php
     } 

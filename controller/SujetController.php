@@ -103,23 +103,23 @@
 
                     if($titreSujet && $textMessage && $utilisateur) {
                         // id du sujet créer     //création du sujet
-                        $IdDernierSujetAjouter = $sujetManager->add(["titre" => $titreSujet, "categorie_id" => $id,"utilisateur_id" => $utilisateur, "etat" => 1]);
+                        $IdDernierSujetAjouter = $sujetManager->add(["titre" => $titreSujet, "categorie_id" => $id,"utilisateur_id" => $utilisateur, "etat" => true]);
                         // création du 1er message
                         $messageManager->add(["sujet_id" => $IdDernierSujetAjouter,"utilisateur_id" => $utilisateur,"contenu" => $textMessage]);
 
                         $this->redirectTo("sujet", "sujetsThread", $IdDernierSujetAjouter);
                     }
                 }
-            } else {
-                return [
-                    "view" => VIEW_DIR."forum/listSujets.php",
-                    "data" => [
-                        "categories" => $categorieManager->findAll(["nom", "DESC"]),
-                        "sujets" => $sujetManager->findAll(["titre", "DESC"]),
-                        "error" => "Aucun utilisateur n'est connecté"   
-                    ]
-                ];
-            }
+            } 
+            return [
+                "view" => VIEW_DIR."forum/listSujets.php",
+                "data" => [
+                    "categories" => $categorieManager->findAll(["nom", "DESC"]),
+                    "sujets" => $sujetManager->listSujets(),
+                    "error" => "Aucun utilisateur n'est connecté"   
+                ]
+            ];
+            
         }
         public function nouveauMessage($id){
             // Manager

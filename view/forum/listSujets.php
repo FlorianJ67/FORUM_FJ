@@ -21,7 +21,7 @@ $creaDate = null;
 
 <div id="forumList">
     <!-- Liste des genres -->
-     <form action="index.php?ctrl=sujet&action=sujetsParCategorie" method="post">
+     <form action="index.php?ctrl=sujet&action=sujetsParCategorie" id="categorieSelector" method="post">
         <label for="categorie">Catégorie</label>
         <select name="categorie" id="categorie">
             <option value="" selected disabled>Toutes (par date)</option>
@@ -83,9 +83,9 @@ $creaDate = null;
     </table>
     <?php
     // formulaire d'ajout de sujet si une catégorie est selectionner (via le $categorieActuel(méthode post au dessus du tableau) ou bien l'id de l'url)
-    if (isset($categorieActuel) || isset($id)) {
+    if (isset($categorieActuel)) {
     ?>
-    <form action="index.php?ctrl=sujet&action=nouveauSujet&id=<?= $categorieActuel ?>" method="post">
+    <form action="index.php?ctrl=sujet&action=nouveauSujet&id=<?= $categorieActuel ?>" class="reply" method="post">
         <div>
             <label for="titreSujet">Titre: </label>
             <input type="text" name="titreSujet">

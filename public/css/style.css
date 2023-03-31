@@ -65,7 +65,7 @@ h1 {
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
 }
-#forumList form {
+#forumList #categorieSelector {
     width: 99%;
     padding: 1% 0;
 }
@@ -175,6 +175,40 @@ textarea {
     padding: 4px;
     max-width: 100%;
     min-width: 30%
+}
+
+.reply {
+    width: 55%;
+    background-color: var(--colorOne);
+    border-radius: 5px;
+    padding: 2%;
+    margin-top: 2%;
+    display: flex;
+    flex-direction: column;
+}
+.reply div {
+    display: flex;
+    justify-content: space-between;
+    margin: 2px 0;
+}
+.reply div:last-child {
+    display: flex;
+    justify-content: space-around;
+}
+.reply div label {
+    width: 20%;
+}
+.reply div input, .reply div textarea {
+    width: 80%;
+    padding: 4px;
+}
+.reply textarea {
+    max-width: 79%;
+    min-width: 79%;
+}
+.reply div:last-child input:last-child {
+    width: 33%;
+    font-size: 1.3rem;
 }
 
 .error-box {
