@@ -13,7 +13,7 @@ if (isset($_SESSION['user'])) {
 } else {
     $currentUser = null;
 }
-
+$creaDate = null;
 
 ?>
 
@@ -60,8 +60,8 @@ if (isset($_SESSION['user'])) {
                     ?>
                 <tr>    
                     <td><a href="index.php?ctrl=sujet&action=sujetsThread&id=<?=$sujet->getId()?>"><?=$sujet->getTitre()?></a><?php if($sujet->getEtat() == false || $sujet->getEtat() == 0){ ?> <i class="fa-solid fa-lock"></i> <?php } ?></td>
-                    <td><?=$sujet->getNombreMessage()?></td>
-                    <td><?=$sujet->getDernierMessage()?></td>
+                    <td><?=$sujet->getNombreMessage()?> <i class="fa-regular fa-message"></i></td>
+                    <td><?=date_format(date_create($sujet->getDernierMessage()),"D d F Y à G\hi")?></td>
                     <td><?=$sujet->getDateDeCreation()?></td>
                     <td><a href="index.php?ctrl=utilisateur&action=detailUtilisateur&id=<?= $sujet->getUtilisateur()->getId()?>"><?=$sujet->getUtilisateur()->getPseudo() ?></a></td>
                     <?php

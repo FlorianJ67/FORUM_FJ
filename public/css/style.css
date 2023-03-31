@@ -82,7 +82,7 @@ table thead {
     padding: 1%;
 }
 table thead th {
-    padding: 1%;
+    padding: 1% 0;
 }
 table tbody {
     text-align: left;
@@ -90,16 +90,19 @@ table tbody {
 table tbody td {
     padding: 5px;
 }
+/*       Titre sujet       */
 table tbody tr td:first-child {
     width: 30%;
 }
-table tbody tr td:nth-child(2) {
-    width: 5%;
-    text-align: center;
-}
+/*             les autres colonnes             */
 table tbody tr td:not(:first-child,:nth-child(2)) {
     width: 14%;
     text-align: end;
+}
+/*     Nombre de message      |       Verouiller sujet       |      Supprimer sujet       */
+table tbody tr td:nth-child(2),table tbody tr td:nth-child(6),table tbody tr td:nth-child(7) {
+    width: 3%;
+    text-align: center;
 }
 table td:not(:last-child) {
     border-right: 1px solid var(--colorThree);
