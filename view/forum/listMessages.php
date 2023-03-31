@@ -36,8 +36,10 @@ if (isset($_SESSION['user'])) {
                 if($currentUser) {
                     if(($currentUser->getRole() == ("admin" || "moderateur")) || ($currentUser->getId() == $message->getUtilisateur()->getId())) {
                 ?>
-                        <a href="index.php?ctrl=sujet&action=modifierMessage&id=<?= $message->getId()?>" class="modifyMessage" title="Modifier le message"><i class="fa-regular fa-pen-to-square"></i></a>
-                        <a href="index.php?ctrl=sujet&action=supprimerMessage&id=<?= $message->getId()?>" class="deleteMessage" title="Supprimer le message"><i class="fa-solid fa-trash deleteForum-btn"></i></a>
+                        <div class="lockOrSupp-sujet">
+                            <a href="index.php?ctrl=sujet&action=modifierMessage&id=<?= $message->getId()?>" class="modifyMessage" title="Modifier le message"><i class="fa-regular fa-pen-to-square"></i></a>
+                            <a href="index.php?ctrl=sujet&action=supprimerMessage&id=<?= $message->getId()?>" class="deleteMessage" title="Supprimer le message"><i class="fa-solid fa-trash deleteForum-btn"></i></a>
+                        </div>
                 <?php
                     }
                 }

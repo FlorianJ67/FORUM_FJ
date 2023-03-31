@@ -136,15 +136,10 @@ table tr:nth-child(even) {
     width: 50%;
 }
 
-.deleteMessage {
-    position: sticky;
-    left: 100%;
-    bottom: 100%;
-}
-.modifyMessage {
-    position: sticky;
-    left: 88%;
-    bottom: 100%;
+.lockOrSupp-sujet {
+    position: absolute;
+    right: 7px;
+    top: 7px;;
 }
 
 .message-box {
@@ -160,6 +155,7 @@ table tr:nth-child(even) {
 }
 .message-box div:last-child {
     padding: 14px 14px 10px 14px;
+    position: relative;
     background-color: var(--colorTwo);
     border-radius: 0 10px 10px 10px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
