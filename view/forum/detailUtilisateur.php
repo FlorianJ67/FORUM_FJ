@@ -11,9 +11,9 @@ if(isset($result["data"]['messages'])) {
 
 <h1>Info sur <?=$utilisateur->getPseudo() ?></h1>
 
-<div>
+<div style="width: 66%">
     <h2 style="text-align:center;">Dernier messages</h2>
-    <div style="width: 33%; margin: 0 auto;">
+    <div>
         <?php 
         if ($messages) {
             // liste des 5 derniers messages de l'utilisateur
