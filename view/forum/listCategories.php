@@ -33,11 +33,11 @@ if (isset($currentUser)) {
         <!-- formulaire nouveau sujet + 1er message du nouveau sujet -->
         <form action="index.php?ctrl=categorie&action=nouvelleCategorie" class="reply" method="post">
             <div>
-                <label for="nomCategorie">Envoyer un message:</label> 
+                <label for="nomCategorie">Ajouter une catégorie:</label> 
                 <input name="nomCategorie" >
             </div>
             <div>
-                <input type="submit" name="submit">
+                <input type="submit" name="submit" value="Ajouter">
             </div>
         </form>
 <?php

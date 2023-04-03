@@ -16,6 +16,10 @@ a, p {
 a {
     text-decoration: none;
 }
+li {
+    list-style: none;
+    margin: 10px 0;
+}
 header {
     width: 100%;
     height: 50px;
@@ -114,19 +118,22 @@ table td:not(:last-child) {
 table tr:nth-child(even) {
     background-color: white;
 }
+form>div{ 
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
 .gestionnaireUtilisateur {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 .gestionnaireUtilisateur form{
     width: 50%;
     margin-top: 3%;
     padding: 2%;
     border-radius: 5px;
-}
-.gestionnaireUtilisateur form div{ 
-    width: 100%;
 }
 .gestionnaireUtilisateur form div:not(:last-child){ 
     display: flex;
@@ -217,7 +224,22 @@ textarea {
     border-radius: 5px;
     border: 1px solid #b9b9b9;
 }
+.reply div:last-child input:last-child:hover {
+    opacity: 0.8;
+    background-color: var(--colorThree);
+    color: white;
+    transition: 0.3s;
+}
 
+.message {
+    height: 50px;
+    margin-top: 60px;
+    margin-left:10px;
+    position: absolute;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #4263b94d;
+}
 .error-box {
     width: 50%;
     margin-left: auto;

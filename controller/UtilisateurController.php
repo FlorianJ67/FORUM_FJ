@@ -38,4 +38,16 @@
                  ]
              ];
         }
+
+        public function modifierUtilisateur($id){
+          
+            $utilisateurManager = new UtilisateurManager();
+ 
+             return [
+                 "view" => VIEW_DIR."forum/modifierUtilisateur.php",
+                 "data" => [
+                     "user" => $utilisateurManager->findOneById($id)
+                 ]
+             ];
+        }
     }

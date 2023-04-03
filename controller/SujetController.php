@@ -88,7 +88,6 @@
             // Manager
             $sujetManager = new SujetManager();
             $messageManager = new MessageManager();
-            $categorieManager = new CategorieManager();
  
             if(isset($_SESSION["user"])) {
 
@@ -109,16 +108,13 @@
 
                         $this->redirectTo("sujet", "sujetsThread", $IdDernierSujetAjouter);
                     }
+                    Session::addFlash("error","Veuillez remplir les champs");
+                    $this->redirectTo("sujet","sujetsParCategorie",$id);
                 }
             } 
-            return [
-                "view" => VIEW_DIR."forum/listSujets.php",
-                "data" => [
-                    "categories" => $categorieManager->findAll(["nom", "DESC"]),
-                    "sujets" => $sujetManager->listSujets(),
-                    "error" => "Aucun utilisateur n'est connecté"   
-                ]
-            ];
+                Session::addFlash("error","Aucun utilisateur n'est connecté");
+                $this->redirectTo("sujet","sujetsParCategorie",$id);          
+
             
         }
         public function nouveauMessage($id){

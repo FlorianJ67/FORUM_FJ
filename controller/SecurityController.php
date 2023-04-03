@@ -15,8 +15,7 @@
         public function index(){
  
              return [
-                 "view" => VIEW_DIR."forum/login.php",
-
+                 "view" => VIEW_DIR."forum/login.php"
              ];   
          }
 
@@ -36,7 +35,6 @@
                 $mdp1 = filter_input(INPUT_POST, "mdp1", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 // -mot de passe vérification
                 $mdp2 = filter_input(INPUT_POST, "mdp2", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
 
                 // On vérifie si les champs n'existe pas déjà en BDD et que les mots de passe sont bien identique
 
@@ -61,7 +59,6 @@
                     }                    
                 }
 
-            
                 // on compare le mdp et le 'vérifier' mdp
                 if(isset($mdp1) && isset($mdp2)) {
                     if($mdp1 == null || $mdp1 == '' || $mdp2 == null || $mdp2 == '') {
@@ -84,14 +81,9 @@
                         }
                     }   
                 }
-        
                 if ($error) {
-                    return [
-                        "view" => VIEW_DIR."forum/register.php",
-                        "data" => [
-                            "error" => $error
-                        ]
-                    ];
+                    Session::addFlash("error",$error);
+                    $this->redirectTo("security");
                 }
 
                 if($pseudo && $mail && $motDePasse) {
@@ -111,15 +103,13 @@
                     "view" => VIEW_DIR."forum/register.php",
                 ];                 
             }
- 
         }
-
 
         public function connexionUtilisateur(){
             $utilisateurManager = new UtilisateurManager();
             $messageManager = new MessageManager();
 
-            if( isset($_POST['submit'])) {
+            if(isset($_POST['submit'])) {
 
                 $email = filter_input(INPUT_POST, 'mail', FILTER_SANITIZE_EMAIL);
                 $motDePasse = filter_input(INPUT_POST, 'motDePasse', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -128,6 +118,7 @@
                     
                     $utilisateur = $utilisateurManager->checkUtilisateurParMail($email);
                     
+                    // on vérifie si le mail appartient a un utilisateur inscrit
                     if ($utilisateur) {
                         
                         $hash = $utilisateur->getMotDePasse();
@@ -143,30 +134,64 @@
                                     "messages" => $messageManager->listMessagesParUtilisateur($utilisateur->getId())
                                 ]
                             ];
-
+                        } else {
+                            $error = "le mot de passe ne correspond pas";
+                            
+                            Session::addFlash("error",$error);
+                            $this->redirectTo("security","connexionUtilisateur");
                         }
+                    // si non on redirige vers la page de connexion
                     } else {
                         $error = "aucun mail ne correspond";
-                        return [
-                            "view" => VIEW_DIR."forum/login.php",
-                            "data" => [
-                                "error" => $error
-                            ]
-                        ];                  
-                    }
-                }
-            } 
 
+                        Session::addFlash("error",$error);
+                        $this->redirectTo("security","connexionUtilisateur");
+                    }
+                } else {
+                    $this->redirectTo("security");
+                }
+            }
         }
 
         public function deconnexionUtilisateur(){
-
-            $categorieManager = new CategorieManager();
-            $sujetManager = new SujetManager();
 
             session_destroy();
 
             $this->redirectTo("sujet","index");
         }
 
+        public function modifierMDP($id){
+            // Manager
+            $utilisateurManager = new UtilisateurManager();
+
+            if(isset($_POST['submit'])) {
+                // Récupération:
+                // -mot de passe actuel
+                $mdp = filter_input(INPUT_POST, "mdp", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                // -nouveau mot de passe
+                $newMdp = filter_input(INPUT_POST, "newMdp", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                // -vérification nouveau mot de passe 
+                $newMdp2 = filter_input(INPUT_POST, "newMdp2", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+                $utilisateur = $utilisateurManager->findOneById($id);
+                $hash = $utilisateur->getMotDePasse();
+
+                if(password_verify($mdp, $hash)){
+                    if($newMdp == $newMdp2){
+                        $newMdp = password_hash($newMdp, PASSWORD_DEFAULT);
+                        $utilisateur->setMotDePasse($newMdp);
+                        
+                        Session::addFlash("succes","mot de passe modifié");
+                    } else {
+                        Session::addFlash("error","les 2 nouveaux mot de passe sont différent");
+                    }
+                } else {
+                    Session::addFlash("error","le mot de passe actuel est incorrect");
+                }
+            } else {
+                // active la variable qui ordonne d'afficher le formulaire sur la page "modifierUtilisateur"
+                Session::addFlash("modifyRequest","mdp");
+            }
+            $this->redirectTo("utilisateur","modifierUtilisateur", $id);
+        }
     }

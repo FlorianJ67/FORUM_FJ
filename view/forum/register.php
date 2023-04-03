@@ -1,12 +1,3 @@
-<?php
-
-if(isset($result["data"]['error'])) {
-    $error = $result["data"]['error'];
-} else {
-    $error = null;
-}
-    
-?>
 
 <h2>Inscription</h2>
 <div class="gestionnaireUtilisateur">
@@ -32,18 +23,6 @@ if(isset($result["data"]['error'])) {
             <input type="submit" name="submit">
         </div>
     </form>
-
-    <?php 
-    if($error) {
-    ?>
-
-    <div class='error-box'>
-        <p><?= $error ?></p>
-    </div>
-
-    <?php 
-    }
-    ?>
 
 </div>
 

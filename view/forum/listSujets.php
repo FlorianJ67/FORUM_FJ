@@ -5,18 +5,19 @@ ini_set('intl.default_locale', 'fr_FR');
 $categories = $result["data"]['categories'];
 $sujets = $result["data"]['sujets'];
 
+// catégorie
 if (isset($result["data"]['categorieActuel'])) {
     $categorieActuel = $result["data"]['categorieActuel'];
 } else if (isset($id)){
     $categorieActuel = $id;
 }
 
+// utilisateur
 if (isset($_SESSION['user'])) {
     $currentUser = $_SESSION['user'];
 } else {
     $currentUser = null;
 }
-$creaDate = null;
 
 ?>
 
@@ -65,8 +66,8 @@ $creaDate = null;
                     <td><a href="index.php?ctrl=sujet&action=sujetsThread&id=<?=$sujet->getId()?>"><?=$sujet->getTitre()?></a><?php if($sujet->getEtat() == false || $sujet->getEtat() == 0){ ?> <i class="fa-solid fa-lock"></i> <?php } ?></td>
                     <td><?=$sujet->getNombreMessage()?> <i class="fa-regular fa-message"></i></td>
                     <!--      Stock la date                                                           stock la date sous un des format prédéfini format                       On enlève la chaine de charactère indésirable              -->
-                    <td><?php $cal = IntlCalendar::fromDateTime($sujet->getDernierMessage(),"fr_FR"); $date = IntlDateFormatter::formatObject($cal, IntlDateFormatter::FULL); echo str_replace("Temps universel coordonné", "",$date)?></td>
-                    <td><?php $cal = IntlCalendar::fromDateTime($sujet->getDateDeCreation(),"fr_FR"); $date = IntlDateFormatter::formatObject($cal, IntlDateFormatter::FULL); echo str_replace("Temps universel coordonné", "",$date)?></td>
+                    <td><?php $cal = IntlCalendar::fromDateTime($sujet->getDernierMessage(),"fr_FR"); $date = IntlDateFormatter::formatObject($cal, IntlDateFormatter::FULL); echo ucfirst(str_replace("Temps universel coordonné", "",$date))?></td>
+                    <td><?php $cal = IntlCalendar::fromDateTime($sujet->getDateDeCreation(),"fr_FR"); $date = IntlDateFormatter::formatObject($cal, IntlDateFormatter::FULL); echo ucfirst(str_replace("Temps universel coordonné", "",$date))?></td>
                     <td><a href="index.php?ctrl=utilisateur&action=detailUtilisateur&id=<?= $sujet->getUtilisateur()->getId()?>"><?=$sujet->getUtilisateur()->getPseudo() ?></a></td>
                     <?php
                     if($currentUser) {
@@ -105,6 +106,7 @@ $creaDate = null;
     <?php
     }
     ?>
+
 </div>
 
 

@@ -38,7 +38,7 @@
                             <a href="index.php?ctrl=sujet&action=listSujets">la liste des topics</a>
                             <a href="index.php?ctrl=categorie&action=listCategories">la liste des catégories</a>
                             
-                            <a href="index.php?ctrl=utilisateur&action=detailUtilisateur&id=<?= App\Session::getUser()->getId()?>"><span class="fas fa-user"></span>&nbsp;<?= App\Session::getUser()->getPseudo()?></a>
+                            <a href="index.php?ctrl=utilisateur&action=modifierUtilisateur&id=<?= App\Session::getUser()->getId()?>"><span class="fas fa-user"></span>&nbsp;<?= App\Session::getUser()->getPseudo()?></a>
                             <a href="index.php?ctrl=security&action=deconnexionUtilisateur">Déconnexion</a>
                             <?php
                         }
