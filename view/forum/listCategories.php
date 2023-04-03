@@ -1,6 +1,12 @@
 <?php
 
 $categories = $result["data"]['categories'];
+
+if (isset($_SESSION['user'])) {
+    $currentUser = $_SESSION['user'];
+} else {
+    $currentUser = null;
+}
     
 ?>
 
@@ -20,8 +26,24 @@ if (!$categories) {
 }?>
 
 </div>
-
-
+<?php
+if (isset($currentUser)) {
+    if($currentUser->getRole() == "admin"){
+?>
+        <!-- formulaire nouveau sujet + 1er message du nouveau sujet -->
+        <form action="index.php?ctrl=categorie&action=nouvelleCategorie" class="reply" method="post">
+            <div>
+                <label for="nomCategorie">Envoyer un message:</label> 
+                <input name="nomCategorie" >
+            </div>
+            <div>
+                <input type="submit" name="submit">
+            </div>
+        </form>
+<?php
+    }
+}
+?>
 
 
 

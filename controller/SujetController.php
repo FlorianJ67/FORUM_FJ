@@ -103,7 +103,7 @@
 
                     if($titreSujet && $textMessage && $utilisateur) {
                         // id du sujet créer     //création du sujet
-                        $IdDernierSujetAjouter = $sujetManager->add(["titre" => $titreSujet, "categorie_id" => $id,"utilisateur_id" => $utilisateur, "etat" => true]);
+                        $IdDernierSujetAjouter = $sujetManager->add(["titre" => $titreSujet, "categorie_id" => $id,"utilisateur_id" => $utilisateur, "etat" => 1]);
                         // création du 1er message
                         $messageManager->add(["sujet_id" => $IdDernierSujetAjouter,"utilisateur_id" => $utilisateur,"contenu" => $textMessage]);
 

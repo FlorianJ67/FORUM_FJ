@@ -32,9 +32,9 @@ if (isset($_SESSION['user'])) {
                 <p class="contenu-message"><?=$message->getContenu()?></p>
 
             <?php
-                // boutton supprimer le message
+                // boutton modifier & supprimer le message
                 if($currentUser) {
-                    if(($currentUser->getRole() == ("admin" || "moderateur")) || ($currentUser->getId() == $message->getUtilisateur()->getId())) {
+                    if(($currentUser->getRole() == "admin" || $currentUser->getRole() == "moderateur") || ($currentUser->getId() == $message->getUtilisateur()->getId())) {
                 ?>
                         <div class="lockOrSupp-sujet">
                             <a href="index.php?ctrl=sujet&action=modifierMessage&id=<?= $message->getId()?>" class="modifyMessage" title="Modifier le message"><i class="fa-regular fa-pen-to-square"></i></a>
