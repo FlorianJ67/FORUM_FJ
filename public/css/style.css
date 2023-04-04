@@ -263,6 +263,7 @@ footer {
 
 @media only screen and (max-width: 700px) {
 
+    /* Tableau responsive */
     .table-responsive td {
         width: auto!important;
         text-align: end!important;
@@ -314,5 +315,23 @@ footer {
     .table-responsive th + td {
         padding-left: 10px;
     }
-
+    /* Fin de Tableau responsive */
 }
+
+
+@media (min-width: 48em) {
+    .header li {
+      float: left;
+    }
+    .header li a {
+      padding: 20px 30px;
+    }
+    .header .menu {
+      clear: none;
+      float: right;
+      max-height: none;
+    }
+    .header .menu-icon {
+      display: none;
+    }
+  }
