@@ -47,20 +47,6 @@
                 );
         }
 
-        public function countMessageParSujet($id){
-            parent::connect();
-
-                $sql = "SELECT COUNT(*)
-                        FROM message
-                        WHERE sujet_id = :id
-                        ";
-
-                return $this->getOneOrNullResult(
-                    DAO::select($sql, ['id' => $id], false), 
-                    $this->className
-                );
-        }
-
         public function supprimerSujetParId($id){
             parent::connect();
 

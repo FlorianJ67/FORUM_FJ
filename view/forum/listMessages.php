@@ -2,6 +2,7 @@
 
 $sujet = $result["data"]['sujet'];
 $messages = $result["data"]['messages'];
+$messagesNb = $result["data"]['messagesNb'];
     
 if (isset($_SESSION['user'])) {
     $currentUser = $_SESSION['user'];
@@ -11,6 +12,11 @@ if (isset($_SESSION['user'])) {
 ?>
 
 <h1>liste des messages du sujet <?= $sujet->getTitre() ?></h1>
+<p style="text-align: left; width: 100%; margin: 1% 0"><?= "nombre de message" ?>
+<?php   if($messagesNb->getCountMessage() > 1){
+            echo "s";
+        } echo ": " .$messagesNb->getCountMessage() ?>
+</p>
 
 <div id="forumList">
     

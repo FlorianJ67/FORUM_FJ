@@ -258,3 +258,61 @@ footer {
     margin-top: 25px;
     text-align: center;
 }
+
+
+
+@media only screen and (max-width: 700px) {
+
+    .table-responsive td {
+        width: auto!important;
+        text-align: end!important;
+    }
+
+    .table-responsive table, 
+    .table-responsive thead, 
+    .table-responsive tbody, 
+    .table-responsive tr, 
+    .table-responsive th, 
+    .table-responsive td {
+        display: block;
+    }
+
+    .table-responsive thead {
+        display: none;
+    }
+
+    .table-responsive td {
+        padding-left: 150px;
+        position: relative;
+        margin-top: -1px;
+        background: #FFF;
+    }
+
+    .table-responsive td:nth-child(odd) {
+        background-color: #eee;
+    }
+
+    .table-responsive td::before {
+        padding: 10px;
+        content: attr(data-label);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 130px;
+        bottom: 0;
+        background-color: var(--colorTwo);
+        color: #FFF;
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+    }
+
+    .table-responsive tr {
+        margin-bottom: 1rem;
+    }
+
+    .table-responsive th + td {
+        padding-left: 10px;
+    }
+
+}

@@ -73,7 +73,8 @@
                     "view" => VIEW_DIR."forum/listMessages.php",
                     "data" => [
                         "messages" => $messageManager->listMessagesParSujet($id),
-                        "sujet" => $sujetManager->findOneById($id)
+                        "sujet" => $sujetManager->findOneById($id),
+                        "messagesNb" => $messageManager->countMessageParSujet($id)
                     ]
                 ];
             } 

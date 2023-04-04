@@ -40,7 +40,7 @@ if (isset($_SESSION['user'])) {
         </select>
         <input type="submit" value="Rechercher">
     </form> 
-    
+    <div class="table-responsive" style="width: 100%;">
     <!-- Tableau des sujets -->
     <table id="listSujets">
         <thead>
@@ -61,7 +61,7 @@ if (isset($_SESSION['user'])) {
                 foreach($sujets as $sujet ){
                     // on formate l'affichage du date_create
                     $formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::FULL, IntlDateFormatter::SHORT );
-                    // on stock le date formatter:
+                    // on stock la date formatter:
                     $dateDerActivite = date_create($sujet->getDernierMessage());
                     $dateCreation = date_create($sujet->getDateDeCreation());
                     ?>
@@ -88,6 +88,7 @@ if (isset($_SESSION['user'])) {
             
         </tbody>
     </table>
+    </div>
     <?php
     // formulaire d'ajout de sujet si une catégorie est selectionner (via le $categorieActuel(méthode post au dessus du tableau) ou bien l'id de l'url)
     if (isset($categorieActuel) && $currentUser && $currentUser->getBan() == !1) {
@@ -110,7 +111,16 @@ if (isset($_SESSION['user'])) {
     ?>
 
 </div>
-
+<script>
+    document.querySelectorAll('.table-responsive').forEach(function (table) {
+    let labels = Array.from(table.querySelectorAll('th')).map(function (th) {
+        return th.innerText
+    })
+    table.querySelectorAll('td').forEach(function (td, i) {
+        td.setAttribute('data-label', labels[i % labels.length])
+    })
+})
+</script>
 
 
 

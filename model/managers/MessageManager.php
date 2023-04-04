@@ -41,6 +41,21 @@
                     $this->className
                 );
         }
+
+        public function countMessageParSujet($id){
+            parent::connect();
+
+                $sql = "SELECT COUNT(*) as countMessage
+                        FROM ".$this->tableName."
+                        WHERE sujet_id = :id
+                        ";
+
+                return $this->getOneOrNullResult(
+                    DAO::select($sql, ['id' => $id], false), 
+                    $this->className
+                );
+        }
+
         public function supprimerToutLesMessagesParSujetId($id){
             parent::connect();
 
@@ -65,7 +80,7 @@
                 $sql = "UPDATE ".$this->tableName."
                         SET contenu = :contenu
                         WHERE id_message = :id";
-                        
+
                     DAO::update($sql, ['id' => $id,'contenu' => $contenu]);
         }
     }

@@ -11,6 +11,8 @@
         private $dateDeCreation;
         private $sujet;
 
+        private $countMessage;
+
         public function __construct($data){         
             $this->hydrate($data);        
         }
@@ -108,4 +110,22 @@
             return $this;
         }
 
+
+        /**
+         * Get the value of countMessage
+         */
+        public function getCountMessage()
+        {
+                return $this->countMessage;
+        }
+
+        /**
+         * Set the value of countMessage
+         */
+        public function setCountMessage($countMessage): self
+        {
+                $this->countMessage = $countMessage;
+
+                return $this;
+        }
     }
