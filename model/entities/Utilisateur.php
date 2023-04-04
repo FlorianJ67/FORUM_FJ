@@ -91,9 +91,9 @@
          *
          * @return  self
          */ 
-        public function setMotDePasse($mot_de_passe)
+        public function setMotDePasse($motDePasse)
         {
-                $this->motDePasse = $mot_de_passe;
+                $this->motDePasse = $motDePasse;
 
                 return $this;
         }

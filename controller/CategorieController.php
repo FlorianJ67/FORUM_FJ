@@ -18,8 +18,7 @@
                 "data" => [
                     "categories" => $categorieManager->findAll(["nom", "DESC"])
                 ]
-            ];
-        
+            ];   
         }
 
         public function nouvelleCategorie(){
@@ -41,5 +40,4 @@
                 }
             }
         }
-
     }

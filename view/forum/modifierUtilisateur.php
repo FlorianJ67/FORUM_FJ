@@ -27,7 +27,7 @@ if(App\Session::getFlash("modifyRequest")){
                 <input type="password" name="newMdp">
             </div>            
             <div>
-                <label for="newMdp2">Confirmé le nouveau mot de passe</label>
+                <label for="newMdp2">Confirmé le Nouveau mot de passe</label>
                 <input type="password" name="newMdp2">
             </div>
             <div>

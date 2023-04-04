@@ -71,4 +71,15 @@
                 );
         }
 
+        public function updatePassword($id,$newPassword) {
+            parent::connect();
+
+                $sql = "UPDATE ".$this->tableName."
+                        SET motDePasse = :newPassword
+                        WHERE id_".$this->tableName." = :id
+                        ";
+
+                DAO::update($sql, ['id' => $id,'newPassword' => $newPassword]);
+        }
+
     }

@@ -129,6 +129,12 @@ form>div{
     align-items: center;
     width: 100%;
 }
+form div {
+    margin: 2% 0;
+}
+form>div:last-child {
+    justify-content: flex-end;
+}
 .gestionnaireUtilisateur form{
     width: 50%;
     margin-top: 3%;
@@ -139,7 +145,7 @@ form>div{
     display: flex;
     justify-content: space-between;
 }
-.gestionnaireUtilisateur form div:last-child{ 
+.gestionnaireUtilisateur form div:last-child { 
     display: flex;
     justify-content: center;
 }
@@ -223,6 +229,8 @@ textarea {
     font-size: 1.3rem;
     border-radius: 5px;
     border: 1px solid #b9b9b9;
+    transition: 0.3s;
+
 }
 .reply div:last-child input:last-child:hover {
     opacity: 0.8;

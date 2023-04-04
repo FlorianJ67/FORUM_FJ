@@ -65,6 +65,7 @@
                 $sql = "UPDATE ".$this->tableName."
                         SET contenu = :contenu
                         WHERE id_message = :id";
+                        
                     DAO::update($sql, ['id' => $id,'contenu' => $contenu]);
         }
     }

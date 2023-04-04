@@ -5,7 +5,8 @@
     use App\Session;
     use App\AbstractController;
     use App\ControllerInterface;
-    use Model\Managers\UtilisateurManager;
+use Model\Entities\Utilisateur;
+use Model\Managers\UtilisateurManager;
     use Model\Managers\SujetManager;
     use Model\Managers\CategorieManager;
     use Model\Managers\MessageManager;
@@ -22,7 +23,6 @@
         public function ajoutUtilisateur(){
             // Manager
             $utilisateurManager = new UtilisateurManager();
-            $messageManager = new MessageManager();
  
             if(isset($_POST['submit'])) {
                 // Récupération:
@@ -83,20 +83,12 @@
                 }
                 if ($error) {
                     Session::addFlash("error",$error);
-                    $this->redirectTo("security");
-                }
-
-                if($pseudo && $mail && $motDePasse) {
+                    $this->redirectTo("security","ajoutUtilisateur");
+                } else if($pseudo && $mail && $motDePasse) {
                     // on créer le nouvel utilisateur et on récupère son ID
                     $newUser = $utilisateurManager->add(["pseudo" => $pseudo,"mail" => $mail,"motDePasse" => $motDePasse]);
                     
-                    return [
-                        "view" => VIEW_DIR . "forum/detailUtilisateur.php",
-                        "data" => [
-                            "user" => $utilisateurManager->findOneById($newUser),
-                            "messages" => $messageManager->listMessagesParUtilisateur($newUser)
-                        ]
-                    ];
+                    $this->redirectTo("utilisateur","detailUtilisateur",$newUser);
                 }
             } else {
                 return [
@@ -107,12 +99,13 @@
 
         public function connexionUtilisateur(){
             $utilisateurManager = new UtilisateurManager();
-            $messageManager = new MessageManager();
 
             if(isset($_POST['submit'])) {
 
                 $email = filter_input(INPUT_POST, 'mail', FILTER_SANITIZE_EMAIL);
                 $motDePasse = filter_input(INPUT_POST, 'motDePasse', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+                $error = null;
                 
                 if($email && $motDePasse) {
                     
@@ -126,31 +119,18 @@
                         if(password_verify($motDePasse, $hash)) {
 
                             Session::setUser($utilisateur);
+                            $this->redirectTo("utilisateur","detailUtilisateur",$utilisateur->getId());
 
-                            return [
-                                "view" => VIEW_DIR . "forum/detailUtilisateur.php",
-                                "data" => [
-                                    "user" => $utilisateur,
-                                    "messages" => $messageManager->listMessagesParUtilisateur($utilisateur->getId())
-                                ]
-                            ];
                         } else {
                             $error = "le mot de passe ne correspond pas";
-                            
-                            Session::addFlash("error",$error);
-                            $this->redirectTo("security","connexionUtilisateur");
                         }
-                    // si non on redirige vers la page de connexion
                     } else {
-                        $error = "aucun mail ne correspond";
-
-                        Session::addFlash("error",$error);
-                        $this->redirectTo("security","connexionUtilisateur");
+                        $error = "aucun compte assosié au mail";
                     }
-                } else {
-                    $this->redirectTo("security");
-                }
-            }
+                } 
+            }                    
+            Session::addFlash("error",$error);   
+            $this->redirectTo("security");
         }
 
         public function deconnexionUtilisateur(){
@@ -179,9 +159,10 @@
                 if(password_verify($mdp, $hash)){
                     if($newMdp == $newMdp2){
                         $newMdp = password_hash($newMdp, PASSWORD_DEFAULT);
-                        $utilisateur->setMotDePasse($newMdp);
+
+                        Session::addFlash("success","mot de passe modifié");
                         
-                        Session::addFlash("succes","mot de passe modifié");
+                        $utilisateurManager->updatePassword($utilisateur->getId(),$newMdp);
                     } else {
                         Session::addFlash("error","les 2 nouveaux mot de passe sont différent");
                     }

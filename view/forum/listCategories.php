@@ -34,7 +34,7 @@ if (isset($currentUser)) {
         <form action="index.php?ctrl=categorie&action=nouvelleCategorie" class="reply" method="post">
             <div>
                 <label for="nomCategorie">Ajouter une catégorie:</label> 
-                <input name="nomCategorie" >
+                <input name="nomCategorie" required>
             </div>
             <div>
                 <input type="submit" name="submit" value="Ajouter">

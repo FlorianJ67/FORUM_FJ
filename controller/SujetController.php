@@ -224,6 +224,6 @@
                     $sujetManager->unlockSujetParId($id);
                 }
             }
-            $this->redirectTo('sujet','sujetsParCategorie');
+            $this->redirectTo('sujet','sujetsParCategorie',$sujet->getCategorie()->getId());
         }
     }
