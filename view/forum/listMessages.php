@@ -55,7 +55,7 @@ if (isset($_SESSION['user'])) {
         }
     }
     // on vérifie si le sujet est blocké et si il y a un utilisateur connecté
-    if ($sujet->getEtat() && isset($currentUser)) {
+    if ($sujet->getEtat() && $currentUser && $currentUser->getBan() == !1) {
         ?>
         <!-- formulaire nouveau sujet + 1er message du nouveau sujet -->
         <form action="index.php?ctrl=sujet&action=nouveauMessage&id=<?=$id?>" class="reply" method="post">

@@ -60,13 +60,7 @@
 
             // vue par defaut sans id spécifier
             } else {
-                return [
-                    "view" => VIEW_DIR."forum/listSujets.php",
-                    "data" => [
-                        "categories" => $categorieManager->findAll(["nom", "DESC"]),
-                        "sujets" => $sujetManager->listSujets()
-                    ]
-                ];
+                $this->redirectTo("sujet");
             }
         }
         public function sujetsThread($id){
@@ -100,7 +94,7 @@
                     // -utilisateur connecté
                     $utilisateur = Session::getUser()->getId();
 
-                    if($titreSujet && $textMessage && $utilisateur) {
+                    if($titreSujet && $textMessage && $utilisateur && $utilisateur->getBan() == !1) {
                         // id du sujet créer     //création du sujet
                         $IdDernierSujetAjouter = $sujetManager->add(["titre" => $titreSujet, "categorie_id" => $id,"utilisateur_id" => $utilisateur, "etat" => 1]);
                         // création du 1er message
@@ -128,7 +122,7 @@
                 // -utilisateur
                 $utilisateur = Session::getUser()->getId();
 
-                if($textMessage && $utilisateur) {
+                if($textMessage && $utilisateur && $utilisateur->getBan() == !1) {
                     // création du message
                     $messageManager->add(["sujet_id" => $id, "utilisateur_id" => $utilisateur, "contenu" => $textMessage]);
 
@@ -153,7 +147,7 @@
                     $utilisateur = Session::getUser();
 
                     // si le role de l'utilisateur est: admin  ou  modérateur    OU que l'utilisateur est l'auteur du message
-                    if (($utilisateur->getRole() == "admin" || $utilisateur->getRole() == "moderateur" || $utilisateur->getId() == $message->getUtilisateur()->getId()) && $textMessage && $utilisateur) {
+                    if (($utilisateur->getRole() == "admin" || $utilisateur->getRole() == "moderateur" || $utilisateur->getId() == $message->getUtilisateur()->getId()) && $textMessage && $utilisateur && $utilisateur->getBan() == !1) {
                         // modification du message
                         $messageManager->modifierMessageParId($id,$textMessage);
                     }
@@ -179,7 +173,7 @@
             $sujet = $sujetManager->findOneById($id);
 
             //on vérifie si l'utilisateur a les droits admin/modérateur OU si il est l'auteur du sujet
-            if ($utilisateur->getRole() == "admin" || $utilisateur->getRole() == "moderateur" || $utilisateur->getId() === $sujet->getUtilisateur()->getId()) {
+            if (($utilisateur->getRole() == "admin" || $utilisateur->getRole() == "moderateur" || $utilisateur->getId() === $sujet->getUtilisateur()->getId()) && $utilisateur->getBan() == !1) {
                 // on supprime les messages du sujet PUIS le sujet
                 $messageManager->supprimerToutLesMessagesParSujetId($id);
                 $sujetManager->supprimerSujetParId($id);

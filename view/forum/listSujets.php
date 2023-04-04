@@ -1,7 +1,5 @@
 <?php
 
-ini_set('intl.default_locale', 'fr_FR');
-
 $categories = $result["data"]['categories'];
 $sujets = $result["data"]['sujets'];
 
@@ -61,13 +59,17 @@ if (isset($_SESSION['user'])) {
             } else {
                 // liste des sujets
                 foreach($sujets as $sujet ){
+                    // on formate l'affichage du date_create
+                    $formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::FULL, IntlDateFormatter::SHORT );
+                    // on stock le date formatter:
+                    $dateDerActivite = date_create($sujet->getDernierMessage());
+                    $dateCreation = date_create($sujet->getDateDeCreation());
                     ?>
                 <tr>    
                     <td><a href="index.php?ctrl=sujet&action=sujetsThread&id=<?=$sujet->getId()?>"><?=$sujet->getTitre()?></a><?php if($sujet->getEtat() == false || $sujet->getEtat() == 0){ ?> <i class="fa-solid fa-lock"></i> <?php } ?></td>
                     <td><?=$sujet->getNombreMessage()?> <i class="fa-regular fa-message"></i></td>
-                    <!--      Stock la date                                                           stock la date sous un des format prédéfini format                       On enlève la chaine de charactère indésirable              -->
-                    <td><?php $cal = IntlCalendar::fromDateTime($sujet->getDernierMessage(),"fr_FR"); $date = IntlDateFormatter::formatObject($cal, IntlDateFormatter::FULL); echo ucfirst(str_replace("Temps universel coordonné", "",$date))?></td>
-                    <td><?php $cal = IntlCalendar::fromDateTime($sujet->getDateDeCreation(),"fr_FR"); $date = IntlDateFormatter::formatObject($cal, IntlDateFormatter::FULL); echo ucfirst(str_replace("Temps universel coordonné", "",$date))?></td>
+                    <td><?= ucfirst($formatter->format($dateDerActivite)) ?></td>
+                    <td><?= ucfirst($formatter->format($dateCreation)) ?></td>
                     <td><a href="index.php?ctrl=utilisateur&action=detailUtilisateur&id=<?= $sujet->getUtilisateur()->getId()?>"><?=$sujet->getUtilisateur()->getPseudo() ?></a></td>
                     <?php
                     if($currentUser) {
@@ -88,7 +90,7 @@ if (isset($_SESSION['user'])) {
     </table>
     <?php
     // formulaire d'ajout de sujet si une catégorie est selectionner (via le $categorieActuel(méthode post au dessus du tableau) ou bien l'id de l'url)
-    if (isset($categorieActuel)) {
+    if (isset($categorieActuel) && $currentUser && $currentUser->getBan() == !1) {
     ?>
     <form action="index.php?ctrl=sujet&action=nouveauSujet&id=<?= $categorieActuel ?>" class="reply" method="post">
         <div>
